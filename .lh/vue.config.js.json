@@ -1,0 +1,18 @@
+{
+    "sourceFile": "vue.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1730303566265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1730303566265,
+            "name": "Commit-0",
+            "content": "const { defineConfig } = require('@vue/cli-service')\nmodule.exports = defineConfig({\n  transpileDependencies: true\n})\nconst port = process.env.port || process.env.npm_config_port || 80 // 端口"
+        }
+    ]
+}
