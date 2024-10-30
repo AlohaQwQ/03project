@@ -1,0 +1,324 @@
+Uri: https://www.slerf.wtf/
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\index.htm
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/disclaimer
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\disclaimer.html
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/fonts/Cherl.ttf
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\fonts\Cherl.ttf
+Content Type: font/ttf
+
+Uri: https://www.slerf.wtf/fonts/Cherl2.ttf
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\fonts\Cherl2.ttf
+Content Type: font/ttf
+
+Uri: https://www.slerf.wtf/fonts/joystix.otf
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\fonts\joystix.otf
+Content Type: font/otf
+
+Uri: https://www.slerf.wtf/history
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\history.html
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/images/coin.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\coin.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/discord.svg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\discord.svg
+Content Type: image/svg+xml
+
+Uri: https://www.slerf.wtf/images/down.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\down.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/ascend.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\ascend.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/bif.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\bif.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/bik.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\bik.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/BingX.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\BingX.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/BitGet.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\BitGet.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/bitmart.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\bitmart.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/bitrue.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\bitrue.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/blue.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\blue.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/bt.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\bt.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/bybit.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\bybit.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/coinex.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\coinex.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/coinw.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\coinw.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/digifinex.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\digifinex.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/doex.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\doex.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/famex.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\famex.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/gateio.svg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\gateio.svg
+Content Type: image/svg+xml
+
+Uri: https://www.slerf.wtf/images/exchanges/hotcoin.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\hotcoin.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/htx.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\htx.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/indodax.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\indodax.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/kcex.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\kcex.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/kob.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\kob.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/KuCoin.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\KuCoin.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/lbank.jpeg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\lbank.jpeg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/mexc.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\mexc.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/novadax.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\novadax.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/orangex.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\orangex.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/phemex.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\phemex.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/pionex.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\pionex.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/poloniex.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\poloniex.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/qu.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\qu.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/sup.webp
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\sup.webp
+Content Type: image/webp
+
+Uri: https://www.slerf.wtf/images/exchanges/tapbit.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\tapbit.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/exchanges/weex.webp
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\weex.webp
+Content Type: image/webp
+
+Uri: https://www.slerf.wtf/images/exchanges/woox.webp
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\woox.webp
+Content Type: image/webp
+
+Uri: https://www.slerf.wtf/images/exchanges/zedx.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\zedx.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/exchanges/zke.jpg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\exchanges\zke.jpg
+Content Type: image/jpeg
+
+Uri: https://www.slerf.wtf/images/home/1.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\home\1.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/home/2.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\home\2.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/home/3.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\home\3.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/home/4.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\home\4.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/home/slerf.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\home\slerf.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/home/text.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\home\text.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/mob1.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\mob1.png
+Content Type: image/png
+
+Uri: https://www.slerf.wtf/images/okx.png
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\404
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/images/telegram.svg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\telegram.svg
+Content Type: image/svg+xml
+
+Uri: https://www.slerf.wtf/images/twitter.svg
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\images\twitter.svg
+Content Type: image/svg+xml
+
+Uri: https://www.slerf.wtf/integrations
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\integrations.html
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/slerfdex
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\slerfdex.html
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/vote
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\vote.html
+Content Type: text/html
+
+Uri: https://www.slerf.wtf/_next/static/chunks/113-35038c2b8339c77e.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\113-35038c2b8339c77e.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/176-b61fedcfa02d1bac.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\176-b61fedcfa02d1bac.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/229-18f2c54b8a0fdbb6.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\229-18f2c54b8a0fdbb6.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/245-62cedc8b119a098c.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\245-62cedc8b119a098c.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/269-d1c5be6ae3f8f97e.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\269-d1c5be6ae3f8f97e.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/3a91511d-c113a601daae95c0.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\3a91511d-c113a601daae95c0.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/486-90549e8f08e389c6.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\486-90549e8f08e389c6.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/559-d9c94eb8c2ac62eb.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\559-d9c94eb8c2ac62eb.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/69-90fc80338b430e38.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\69-90fc80338b430e38.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/792-67ab32c2c125a4f9.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\792-67ab32c2c125a4f9.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/disclaimer/page-08d2b7d51d4aa3ce.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\disclaimer\page-08d2b7d51d4aa3ce.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/history/page-a3e7e58920db5f22.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\history\page-a3e7e58920db5f22.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/integrations/page-719f65e792453cf9.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\integrations\page-719f65e792453cf9.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/layout-49405347e7683e8d.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\layout-49405347e7683e8d.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/page-beb1b6f2693ccba3.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\page-beb1b6f2693ccba3.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/slerfdex/page-403f2504e5de72df.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\slerfdex\page-403f2504e5de72df.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/app/vote/page-23101f63c02a8db9.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\app\vote\page-23101f63c02a8db9.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/fd9d1056-fa5001f299af462d.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\fd9d1056-fa5001f299af462d.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/main-app-a91ab301754ae529.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\main-app-a91ab301754ae529.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\polyfills-c67a75d1b6f99dc8.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/chunks/webpack-350a5a0509577f78.js
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\chunks\webpack-350a5a0509577f78.js
+Content Type: application/javascript
+
+Uri: https://www.slerf.wtf/_next/static/css/aa7500066e220809.css
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\css\aa7500066e220809.css
+Content Type: text/css
+
+Uri: https://www.slerf.wtf/_next/static/css/db7989e5bf89980e.css
+File Name: C:\Downloaded Web Sites\www.slerf.wtf\_next\static\css\db7989e5bf89980e.css
+Content Type: text/css
+
