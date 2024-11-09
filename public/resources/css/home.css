@@ -1,0 +1,52 @@
+.home {
+  width: 40vh;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 57.5vh
+}
+
+.headerNew {
+  color: #fff
+}
+
+.headerMain,
+.headerNew {
+  overflow: hidden;
+  width: 80%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 17px;
+  top: 2%;
+  position: absolute;
+  pointer-events: none;
+  font-family: joystix
+}
+
+.headerMain {
+  color: #000
+}
+
+.footerNew {
+  position: absolute;
+  left: 10%;
+  bottom: 5%
+}
+
+.headerNew-item {
+  pointer-events: all;
+  cursor: pointer
+}
+
+.active {
+  background: #ee9436;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff
+}
+
+.overflow-hidden {
+  overflow: hidden
+}

@@ -1,0 +1,8 @@
+.connect-wallet-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-left: auto;
+  /* 将按钮推到右侧 */
+}

@@ -1,0 +1,142 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  /* background-color: #01050B; */
+  /* background-color: 'rgba(255, 255, 255, 0)'; */
+  /* 设置默认背景色 */
+  font-family: 'WenYue', 'Joystix', 'Roboto', 'sans-serif';
+  /* 设置英文字体为 Roboto */
+  color: white;
+}
+
+/* 本地字体设置 */
+@font-face {
+  font-family: 'WenYue';
+  /* 定义字体名称 */
+  src: url('../public/resources/fonts/WenYue-XinQingNianTi-W8-J-2.otf') format('opentype');
+  /* 指定字体文件路径 */
+}
+
+/* 本地字体设置 */
+@font-face {
+  font-family: 'Joystix';
+  /* 定义字体名称 */
+  src: url('../public/resources/fonts/joystix.otf') format('opentype');
+  /* 指定字体文件路径 */
+}
+
+.ant-menu,
+.ant-menu-item {
+  font-family: 'Joystix', 'Roboto', sans-serif;
+  /* 确保导航栏使用指定字体 */
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  /* 确保全局高度为 100% */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  /* 居中对齐 */
+  align-items: center;
+  /* 垂直居中 */
+}
+
+.responsive-image {
+  max-width: 100%;
+  /* 最大宽度为 100% */
+  height: auto;
+  /* 高度自动调整 */
+}
+
+/* 可选：为手机端设置特定样式 */
+@media (max-width: 768px) {
+  .responsive-image {
+    width: 100%;
+    /* 在手机端宽度为 100% */
+    height: auto;
+    /* 高度自动调整 */
+  }
+}
+
+.custom-menu {
+  background-color: #01050B;
+  /* 设置菜单背景色 */
+  /* border: none; */
+  /* 去掉边框 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* 添加阴影效果 */
+}
+
+.custom-menu .ant-menu-item {
+  color: white;
+  /* 设置菜单项文字颜色 */
+}
+
+.custom-menu .ant-menu-item:hover {
+  background-color: #1890ff;
+  /* 设置悬停时的背景色 */
+  color: #1890ff !important;
+  /* 确保悬停时文字颜色为白色 */
+}
+
+.custom-menu .ant-menu-item-selected {
+  background-color: #1890ff;
+  /* 设置选中项的背景色 */
+}
+
+/* 设置下拉菜单的背景色 */
+.custom-menu .ant-dropdown-menu {
+  background-color: #01050B;
+  /* 设置下拉菜单背景色 */
+}
+
+/* 设置下拉菜单项的文字颜色 */
+.custom-menu .ant-dropdown-menu-item {
+  color: white;
+  /* 设置下拉菜单项文字颜色 */
+}
+
+/* 设置下拉菜单项悬停时的背景色 */
+.custom-menu .ant-dropdown-menu-item:hover {
+  background-color: #1890ff;
+  /* 设置下拉菜单项悬停时的背景色 */
+  color: #1890ff !important;
+  /* 确保悬停时文字颜色为白色 */
+}
+
+.wallet-button {
+  color: white;
+  /* 设置文字颜色 */
+  background-color: #1890ff;
+  /* 设置背景颜色 */
+  border: none;
+  /* 去掉边框 */
+  padding: 10px 20px;
+  /* 设置内边距 */
+  border-radius: 4px;
+  /* 设置圆角 */
+  transition: background-color 0.3s;
+  /* 添加过渡效果 */
+}
+
+.wallet-button:hover {
+  background-color: darkblue;
+  /* 悬停时改变背景颜色 */
+}
