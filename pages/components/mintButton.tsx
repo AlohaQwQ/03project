@@ -61,6 +61,8 @@ import {
 import { useSolanaTime } from ".././utils/SolanaTimeContext";
 import { verifyTx } from ".././utils/verifyTx";
 import { base58 } from "@metaplex-foundation/umi/serializers";
+import { FormattedMessage } from 'react-intl';
+import { messages } from '.././locales';
 
 const updateLoadingText = (
   loadingText: string | undefined,
@@ -241,8 +243,15 @@ const mintClick = async (
       console.error("no mint tx built!");
       return;
     }
+    // 获取当前语言的 "sign" 文本
+    const signText = messages['en'].sign;
 
-    updateLoadingText(`Please sign`, guardList, guardToUse.label, setGuardList);
+    updateLoadingText(
+      signText,
+      guardList,
+      guardToUse.label,
+      setGuardList
+    );
     const signedTransactions = await signAllTransactions(
       mintTxs.map((transaction, index) => ({
         transaction,
@@ -278,7 +287,7 @@ const mintClick = async (
       throw new Error("no tx was created");
     }
     updateLoadingText(
-      `finalizing transaction(s)`,
+      ``,
       guardList,
       guardToUse.label,
       setGuardList
@@ -541,10 +550,11 @@ export function ButtonList({
       maxAmount: guard.maxAmount,
     };
     buttonGuardList.push(buttonElement);
+    // console.log("buttonGuardList:", buttonGuardList); 
   }
 
   const listItems = buttonGuardList.map((buttonGuard, index) => (
-    <Box key={index} marginTop={"20px"}>
+    <Box key={index} >
       <Divider my="10px" />
       <HStack>
         <Heading size="xs" textTransform="uppercase">
@@ -566,7 +576,7 @@ export function ButtonList({
                 />
               </>
             )}
-          {buttonGuard.startTime > createBigInt(0) &&
+          {/* {buttonGuard.startTime > createBigInt(0) &&
             buttonGuard.startTime - solanaTime > createBigInt(0) &&
             (!buttonGuard.endTime ||
               solanaTime - buttonGuard.endTime <= createBigInt(0)) && (
@@ -580,7 +590,7 @@ export function ButtonList({
                   setCheckEligibility={setCheckEligibility}
                 />
               </>
-            )}
+            )} */}
         </Flex>
       </HStack>
       <SimpleGrid columns={2} spacing={5}>
@@ -594,7 +604,7 @@ export function ButtonList({
               min={1}
               max={buttonGuard.maxAmount < 1 ? 1 : buttonGuard.maxAmount}
               size="sm"
-              isDisabled={!buttonGuard.allowed}
+              // isDisabled={!buttonGuard.allowed}
               onChange={(valueAsString, valueAsNumber) =>
                 handleNumberInputChange(buttonGuard.label, valueAsNumber)
               }
@@ -607,7 +617,7 @@ export function ButtonList({
             </NumberInput>
           ) : null}
 
-          <Tooltip label={buttonGuard.tooltip} aria-label="Mint button">
+          {/* <Tooltip label={buttonGuard.tooltip} aria-label="Mint button"> */}
             <Button
               onClick={() =>
                 mintClick(
@@ -626,9 +636,10 @@ export function ButtonList({
                 )
               }
               key={buttonGuard.label}
-              size="sm"
+              // size="sm"
               backgroundColor="teal.100"
-              isDisabled={!buttonGuard.allowed}
+              // isDisabled={!buttonGuard.allowed}
+              className={'mint-button'}
               isLoading={
                 guardList.find((elem) => elem.label === buttonGuard.label)
                   ?.minting
@@ -638,9 +649,11 @@ export function ButtonList({
                   ?.loadingText
               }
             >
-              {buttonGuard.buttonLabel}
+               <FormattedMessage id={'mint'} />
+              {/* <FormattedMessage id={!buttonGuard.allowed ? 'notMint' : buttonGuard.allowed ? 'mint' : 'minted'} /> */}
+              {/* {buttonGuard.buttonLabel} */}
             </Button>
-          </Tooltip>
+          {/* </Tooltip> */}
         </VStack>
       </SimpleGrid>
     </Box>

@@ -25,6 +25,10 @@ export const messages = {
     notMint: "Not Mint",
     mint: "Mint",
     minted: "Minted",
+    sign: "",
+    loading: "Loading...",
+    loadMore: "Load More",
+    noMore: "No More"
   },
   zh: {
     home: "首页",
@@ -50,6 +54,10 @@ export const messages = {
     notMint: "不可铸造",
     mint: "铸造",
     minted: "已铸造",
+    sign: "",
+    loading: "加载中...",
+    loadMore: "加载更多",
+    noMore: "加载完毕"
   },
 };
 

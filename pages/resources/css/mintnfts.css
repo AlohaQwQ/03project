@@ -1,5 +1,6 @@
 .mint-button {
   background-color: white !important;
+  font-family: 'WenYue';
   /* 设置按钮背景为白色 */
   color: black !important;
   /* 设置文字颜色为黑色 */
@@ -20,6 +21,7 @@
 }
 
 .mint-button:hover {
+  font-family: 'WenYue';
   transform: scale(1.05);
   /* 悬停时放大按钮 */
   background-color: rgba(0, 0, 0, 0.1);
@@ -31,6 +33,7 @@
 }
 
 .mint-button.disabled {
+  font-family: 'WenYue';
   background-color: rgba(255, 255, 255, 0.5);
   /* 禁用时背景颜色变浅 */
   color: rgba(0, 0, 0, 0.5) !important;
@@ -42,6 +45,7 @@
 }
 
 .mint-button.disabled:hover {
+  font-family: 'WenYue';
   background-color: rgba(255, 255, 255, 0.5);
   /* 禁用时不改变背景颜色 */
   color: rgba(0, 0, 0, 0.5) !important;
@@ -50,6 +54,7 @@
 }
 
 .custom-text {
+  font-family: 'WenYue';
   color: white;
   /* 设置特定类的文字颜色为白色 */
 }

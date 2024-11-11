@@ -4,6 +4,7 @@ import { signAndConfirmTransactionFe } from "./utilityfunc";
 import disPic from './resources/images/upload-file.jpg';
 import { Button, Card, Row, Col, Spin, Layout, Modal, Image } from 'antd'; // 确保 Layout 在这里导入
 //import AppHeader from './AppHeader'; // 导入 AppHeader 组件
+import { FormattedMessage } from 'react-intl';
 
 const xApiKey = "GZdHhsJYG2Wa94Am"; //Enter Your x-api-key here
 const { Meta } = Card;
@@ -254,7 +255,13 @@ const NftList = () => {
 									fontSize: '25px', // 设置文字大小
 								}}
 							>
-								{loading ? 'Loading...' : (hasMoreData ? 'Load More' : 'No More')}
+								{loading ? (
+									<FormattedMessage id="loading" />
+								) : hasMoreData ? (
+									<FormattedMessage id="loadMore" />
+								) : (
+									<FormattedMessage id="noMore" />
+								)}
 							</span>
 						</div>
 					</div>

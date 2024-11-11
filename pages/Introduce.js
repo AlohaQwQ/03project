@@ -12,7 +12,7 @@ const Introduce = () => {
 					alt="img"
 					src="/resources/images/introduce.png"
 					className="responsive-image"
-					style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+					style={{ width: '10000px', height: 'auto', objectFit: 'cover' }}
 				/>
 			</Content>
 		</Layout>
