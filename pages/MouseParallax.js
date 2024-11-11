@@ -31,7 +31,7 @@ const MouseParallaxProvider = ({ children }) => {
 
     return (
         <MouseParallaxContext.Provider value={springProps}>
-            <div style={{ overflow: 'hidden', position: 'relative', width: '110vw', height: '100vh' }}>
+            <div style={{ overflow: 'hidden', position: 'relative', width: '100vw', height: '100vh' }}>
                 {children}
             </div>
         </MouseParallaxContext.Provider>
@@ -63,7 +63,7 @@ const ParallaxImage = ({ src, style, index, onLoadComplete }) => {
                 backgroundImage: 'url($(src})',
                 backgroundsize:'100%100%',
                 width: '105%',
-                height:'108%',
+                height:'100%',
                 position:'absolute',
                 marginLeft:'-5%',
                 left:'0',

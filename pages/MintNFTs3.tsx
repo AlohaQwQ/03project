@@ -9,13 +9,17 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { useUmi } from "./utils/useUmi";
 import { fetchCandyMachine, safeFetchCandyGuard, CandyGuard, CandyMachine, AccountVersion } from "@metaplex-foundation/mpl-candy-machine"
 import { guardChecker } from "./utils/checkAllowed";
-import { Center, Card, CardHeader, CardBody, StackDivider, Heading, Stack, useToast, Text, Skeleton, useDisclosure, Button, Modal, ModalBody, ModalCloseButton, ModalContent, Image, ModalHeader, ModalOverlay, Box, Divider, VStack, Flex } from '@chakra-ui/react';
+//import { Center, Card, CardHeader, CardBody, StackDivider, Heading, Stack, useToast, Text, Skeleton, useDisclosure, Button, Modal, ModalBody, ModalCloseButton, ModalContent, Image, ModalHeader, ModalOverlay, Box, Divider, VStack, Flex } from '@chakra-ui/react';
+import { Center, Skeleton, useDisclosure, ModalHeader, ModalOverlay, Box, Divider, useToast, VStack, Flex } from '@chakra-ui/react';
 import { ButtonList } from "./components/mintButton";
 import { GuardReturn } from "./utils/checkerHelper";
 import { ShowNft } from "./components/showNft";
 import { InitializeModal } from "./components/initializeModal";
 import { image, headerText } from "./settings";
 import { useSolanaTime } from "./utils/SolanaTimeContext";
+import { Button, Card, Row, Col, Spin, Layout, Modal, Menu, Image } from 'antd';
+import { FormattedMessage } from 'react-intl';
+const { Header, Sider, Content, Footer } = Layout;
 
 const WalletMultiButtonDynamic = dynamic(
   async () =>
@@ -40,17 +44,17 @@ const useCandyMachine = (
     (async () => {
       if (checkEligibility) {
         if (!candyMachineId) {
-          console.error("No candy machine in .env!");
-          if (!toast.isActive("no-cm")) {
-            toast({
-              id: "no-cm",
-              title: "No candy machine in .env!",
-              description: "Add your candy machine address to the .env file!",
-              status: "error",
-              duration: 999999,
-              isClosable: true,
-            });
-          }
+          console.error("No candy machine in .env!Add your candy machine address to the .env file!");
+          // if (!toast.isActive("no-cm")) {
+          //   toast({
+          //     id: "no-cm",
+          //     title: "No candy machine in .env!",
+          //     description: "Add your candy machine address to the .env file!",
+          //     status: "error",
+          //     duration: 999999,
+          //     isClosable: true,
+          //   });
+          // }
           return;
         }
 
@@ -59,26 +63,27 @@ const useCandyMachine = (
           candyMachine = await fetchCandyMachine(umi, publicKey(candyMachineId));
           //verify CM Version
           if (candyMachine.version != AccountVersion.V2) {
-            toast({
-              id: "wrong-account-version",
-              title: "Wrong candy machine account version!",
-              description: "Please use latest sugar to create your candy machine. Need Account Version 2!",
-              status: "error",
-              duration: 999999,
-              isClosable: true,
-            });
+            console.error("Wrong candy machine account version!Please use latest sugar to create your candy machine. Need Account Version 2!");
+            // toast({
+            //   id: "wrong-account-version",
+            //   title: "Wrong candy machine account version!",
+            //   description: "Please use latest sugar to create your candy machine. Need Account Version 2!",
+            //   status: "error",
+            //   duration: 999999,
+            //   isClosable: true,
+            // });
             return;
           }
         } catch (e) {
-          console.error(e);
-          toast({
-            id: "no-cm-found",
-            title: "The CM from .env is invalid",
-            description: "Are you using the correct environment?",
-            status: "error",
-            duration: 999999,
-            isClosable: true,
-          });
+          console.error("The CM from .env is invalid!Are you using the correct environment?" + e);
+          // toast({
+          //   id: "no-cm-found",
+          //   title: "The CM from .env is invalid",
+          //   description: "Are you using the correct environment?",
+          //   status: "error",
+          //   duration: 999999,
+          //   isClosable: true,
+          // });
         }
         setCandyMachine(candyMachine);
         if (!candyMachine) {
@@ -88,15 +93,15 @@ const useCandyMachine = (
         try {
           candyGuard = await safeFetchCandyGuard(umi, candyMachine.mintAuthority);
         } catch (e) {
-          console.error(e);
-          toast({
-            id: "no-guard-found",
-            title: "No Candy Guard found!",
-            description: "Do you have one assigned?",
-            status: "error",
-            duration: 999999,
-            isClosable: true,
-          });
+          console.error("No Candy Guard found!Do you have one assigned?" + e);
+          // toast({
+          //   id: "no-guard-found",
+          //   title: "No Candy Guard found!",
+          //   description: "Do you have one assigned?",
+          //   status: "error",
+          //   duration: 999999,
+          //   isClosable: true,
+          // });
         }
         if (!candyGuard) {
           return;
@@ -130,34 +135,36 @@ export default function Home() {
   ]);
   const [firstRun, setFirstRun] = useState(true);
   const [checkEligibility, setCheckEligibility] = useState<boolean>(true);
-
+  const [disableMint, setDisableMint] = useState(true);
+  const [canMint, setCanMint] = useState(true);
+  const [stopMint, setStopMint] = useState(true);
 
   if (!process.env.NEXT_PUBLIC_CANDY_MACHINE_ID) {
-    console.error("No candy machine in .env!")
-    if (!toast.isActive('no-cm')) {
-      toast({
-        id: 'no-cm',
-        title: 'No candy machine in .env!',
-        description: "Add your candy machine address to the .env file!",
-        status: 'error',
-        duration: 999999,
-        isClosable: true,
-      })
-    }
+    console.error("No candy machine in .env!Add your candy machine address to the .env file!")
+    // if (!toast.isActive('no-cm')) {
+    //   toast({
+    //     id: 'no-cm',
+    //     title: 'No candy machine in .env!',
+    //     description: "Add your candy machine address to the .env file!",
+    //     status: 'error',
+    //     duration: 999999,
+    //     isClosable: true,
+    //   })
+    // }
   }
   const candyMachineId: PublicKey = useMemo(() => {
     if (process.env.NEXT_PUBLIC_CANDY_MACHINE_ID) {
       return publicKey(process.env.NEXT_PUBLIC_CANDY_MACHINE_ID);
     } else {
-      console.error(`NO CANDY MACHINE IN .env FILE DEFINED!`);
-      toast({
-        id: 'no-cm',
-        title: 'No candy machine in .env!',
-        description: "Add your candy machine address to the .env file!",
-        status: 'error',
-        duration: 999999,
-        isClosable: true,
-      })
+      console.error(`NO CANDY MACHINE IN .env FILE DEFINED!Add your candy machine address to the .env file!`);
+      // toast({
+      //   id: 'no-cm',
+      //   title: 'No candy machine in .env!',
+      //   description: "Add your candy machine address to the .env file!",
+      //   status: 'error',
+      //   duration: 999999,
+      //   isClosable: true,
+      // })
       return publicKey("11111111111111111111111111111111");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -198,57 +205,112 @@ export default function Home() {
 
   const PageContent = () => {
     return (
-      <>
-        <style>
-          {`
-              body {
-                  background: #2d3748; 
-              }
-          `}
-        </style>
-        <Card>
-          <CardHeader>
-            <Flex minWidth='max-content' alignItems='center' gap='2'>
-              <Box>
-                <Heading size='md'>{headerText}</Heading>
-              </Box>
-              {loading ? (<></>) : (
-                <Flex justifyContent="flex-end" marginLeft="auto">
-                  <Box background={"teal.100"} borderRadius={"5px"} minWidth={"50px"} minHeight={"50px"} p={2} >
-                    <VStack >
-                      <Text fontSize={"sm"}>Available NFTs:</Text>
-                      <Text fontWeight={"semibold"}>{Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)}</Text>
-                    </VStack>
-                  </Box>
-                </Flex>
-              )}
-            </Flex>
-          </CardHeader>
+      <Layout style={{ position: 'relative', background: 'rgba(255, 255, 255, 0)' }}>
+        <Image
+          alt="img"
+          src="/resources/images/mintback.png" // 背景图路径
+          preview={false} // 禁用预览
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            objectFit: 'cover', // 确保图片覆盖整个区域
+            zIndex: -1 // 确保背景图在其他内容后面
+          }}
+        />
+        <div style={{ marginTop: '6%', marginLeft: 80, padding: 0, display: 'flex', flex: 1, gap: '1%', alignItems: 'center' }}> {/* 使用 Flexbox 布局 */}
+          <Content style={{ width: "60%" }}> {/* 设置为完全透明 */}
+            <div style={{ fontSize: '20px', flex: '0 0 70%' }}>
+              <Content style={{
+                display: 'flex', // 使用 Flexbox 布局
+                marginBottom: '3%'
+              }}> {/* 使用 Flexbox 布局 */}
 
-          <CardBody>
-            <Center>
-              <Box
-                rounded={'lg'}
-                mt={-12}
-                pos={'relative'}>
+                <p style={{ fontSize: '60px' }}><FormattedMessage id="zeroSan" /></p>
                 <Image
-                  rounded={'lg'}
-                  height={230}
-                  objectFit={'cover'}
-                  alt={"project Image"}
-                  src={image}
+                  alt="account"
+                  src="/resources/images/account.png"
+                  style={{ width: '30px', height: 'auto', marginLeft: '30px' }} // 设置图片宽度自适应
+                  preview={false} // 禁用预览
                 />
-              </Box>
-            </Center>
-            <Stack divider={<StackDivider />} spacing='8'>
-              {loading ? (
-                <div>
-                  <Divider my="10px" />
-                  <Skeleton height="30px" my="10px" />
-                  <Skeleton height="30px" my="10px" />
-                  <Skeleton height="30px" my="10px" />
+              </Content>
+
+              <p style={{ marginBottom: '1%' }}><FormattedMessage id="communityIntro" /></p>
+              <p style={{ marginBottom: '1%' }}><FormattedMessage id="collaboration" /></p>
+              <p style={{ marginBottom: '1%' }}><FormattedMessage id="mission" /></p>
+              <p style={{ marginBottom: '1%' }}><FormattedMessage id="missionStatement1" /></p>
+              <p style={{ marginBottom: '1%' }}><FormattedMessage id="missionStatement2" /></p>
+              <p style={{ marginBottom: '1%' }}><FormattedMessage id="identity" /></p>
+              <p style={{ marginTop: '3%' }}>
+                <a href="https://x.com/LINGSAN03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline', marginRight: '1%' }}><FormattedMessage id="twitter" /></a>
+                <a href="https://t.me/LINGSAN_03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline' }}><FormattedMessage id="telegram" /></a>
+              </p>
+            </div>
+          </Content>
+          <Content style={{ width: "30%", display: 'flex', alignItems: 'center' }}>
+            <Image
+              alt="03-logo"
+              src="/resources/images/03-logo.png"
+              style={{ width: '400px', height: 'auto' }} // 设置图片宽度自适应
+              preview={false} // 禁用预览
+            />
+          </Content>
+        </div>
+        <Footer style={{ textAlign: 'center', background: 'rgba(255, 255, 255, 0)', marginLeft: 80, marginTop: 80, padding: 0 }}>
+          <Content style={{
+            padding: 16,
+            height: 55,
+            width: '9%',
+            background: 'rgba(128, 128, 128, 0.5)', // 设置透明的灰色背景
+            borderRadius: '24px', // 设置圆角
+            display: 'flex', // 使用 Flexbox 布局
+            alignItems: 'center', // 垂直居中对齐
+          }}> {/* 使用 Flexbox 布局 */}
+            <Image
+              alt="status-live"
+              src={stopMint ? "/resources/images/status-live.png" : "/resources/images/status-stop.png"} // 根据 StopMint 状态选择图片
+              style={{ width: '25px', height: 'auto' }} // 设置图片宽度自适应
+              preview={false} // 禁用预览
+            />
+            <p style={{ fontSize: '20px', marginLeft: '11%' }}><FormattedMessage id="presale" /></p> {/* 添加右边距以增加间隔 */}
+          </Content>
+
+          <div style={{ marginTop: '1%', display: 'flex', flex: 1, gap: '1%' }}> {/* 使用 Flexbox 布局 */}
+            <Content
+              style={{
+                padding: 40,
+                minHeight: 120,
+                flex: '0 0 30%',
+                background: 'rgba(128, 128, 128, 0.3)', // 设置透明的灰色背景
+                borderRadius: '8px', // 设置圆角
+              }}
+            >
+              <div style={{ textAlign: 'left', width: '100%' }}>
+                <p style={{ fontSize: '16px', marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
+                <p style={{ fontSize: '24px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
+              </div>
+            </Content>
+            <Content
+              style={{
+                padding: 40,
+                minHeight: 120,
+                flex: '0 0 30%',
+                background: 'rgba(128, 128, 128, 0.3)', // 设置透明的灰色背景
+                borderRadius: '8px', // 设置圆角
+                display: 'flex', // 使用 Flexbox 布局
+                flexDirection: 'column', // 垂直排列
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                <div style={{ textAlign: 'left' }}>
+                  <p style={{ fontSize: '16px', marginBottom: '12%' }} >
+                    <FormattedMessage id="availability" />
+                    {/* {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)} */}
+                  </p>
+                  <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p>
                 </div>
-              ) : (
                 <ButtonList
                   guardList={guards}
                   candyMachine={candyMachine}
@@ -261,54 +323,27 @@ export default function Home() {
                   onOpen={onShowNftOpen}
                   setCheckEligibility={setCheckEligibility}
                 />
-              )}
-            </Stack>
-          </CardBody>
-        </Card >
-        {umi.identity.publicKey === candyMachine?.authority ? (
-          <>
-            <Center>
-              <Button backgroundColor={"red.200"} marginTop={"10"} onClick={onInitializerOpen}>Initialize Everything!</Button>
-            </Center>
-            <Modal isOpen={isInitializerOpen} onClose={onInitializerClose}>
-              <ModalOverlay />
-              <ModalContent maxW="600px">
-                <ModalHeader>Initializer</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  < InitializeModal umi={umi} candyMachine={candyMachine} candyGuard={candyGuard} />
-                </ModalBody>
-              </ModalContent>
-            </Modal>
-
-          </>)
-          :
-          (<></>)
-        }
-
-        <Modal isOpen={isShowNftOpen} onClose={onShowNftClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Your minted NFT:</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <ShowNft nfts={mintsCreated} />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      </>
+                {/* <Button
+                  //onClick={canMint && disableMint ? onClick : null} // 当 canMint 为 true 且 disableMint 为 false 时，点击事件为 onClick
+                  disabled={!canMint || !disableMint} // 根据 canMint 和 disableMint 设置按钮禁用状态
+                  className={`mint-button ${!disableMint ? 'disabled' : ''}`} // 根据 disableMint 设置类名
+                >
+                  <FormattedMessage id={!disableMint ? 'notMint' : canMint ? 'mint' : 'minted'} />
+                </Button> */}
+              </div>
+            </Content>
+          </div >
+        </Footer >
+      </Layout >
     );
   };
 
   return (
     <main>
-      <div className='wallet'>
+      {/* <div className='wallet'>
         <WalletMultiButtonDynamic />
-      </div>
-
-      <div className='center'>
-        <PageContent key="content" />
-      </div>
+      </div> */}
+      <PageContent key="content" />
     </main>
   );
 }

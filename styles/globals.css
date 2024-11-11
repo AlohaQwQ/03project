@@ -1,5 +1,6 @@
 html,
 body {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
   /* background-color: #01050B; */
@@ -8,6 +9,9 @@ body {
   font-family: 'WenYue', 'Joystix', 'Roboto', 'sans-serif';
   /* 设置英文字体为 Roboto */
   color: white;
+}
+div,ul,li,span{
+  box-sizing: border-box;
 }
 
 /* 本地字体设置 */
@@ -88,18 +92,28 @@ a {
 .custom-menu .ant-menu-item {
   color: white;
   /* 设置菜单项文字颜色 */
+  border-bottom: 2px solid;
+  border-color: transparent;
+  border-radius: 0;
 }
 
 .custom-menu .ant-menu-item:hover {
-  background-color: #1890ff;
+  background-color: transparent;
   /* 设置悬停时的背景色 */
   color: #1890ff !important;
+  border-color: #FFFFFF;
   /* 确保悬停时文字颜色为白色 */
 }
 
 .custom-menu .ant-menu-item-selected {
-  background-color: #1890ff;
+  /* background-color: #1890ff; */
   /* 设置选中项的背景色 */
+  /* 设置悬停时的背景色 */
+  /* background-color: transparent;
+  color: #1890ff !important;
+  border-color: #FFFFFF; */
+  background-color: transparent;
+  color: #FFFFFF !important;
 }
 
 /* 设置下拉菜单的背景色 */
@@ -138,6 +152,64 @@ a {
 }
 
 .wallet-button:hover {
-  background-color: darkblue;
+  /* background-color: darkblue; */
+  border-color: transparent !important;
   /* 悬停时改变背景颜色 */
+}
+
+/* 首页导航样式调整 */
+.ant-menu.custom-menu{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-menu .menu-wrap{
+  width: auto;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+.custom-menu .menu-wrap .ant-menu-item{
+  padding: 0 24px;
+  margin-right: 150px;
+}
+.custom-menu .menu-wrap .ant-menu-item:nth-last-child(1){
+  margin-right: 0;
+}
+.custom-menu .header-operations{
+  position: absolute;
+  right: 20px;
+  top: 0;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+.custom-menu .header-operations .menu-item-wallet{
+  width: auto;
+  padding: 0;
+  margin: 0;
+  height: 48px;
+  color: white;
+  /* 设置文字颜色 */
+  background-color: #512da8;
+  /* 设置背景颜色 */
+  border: none;
+  /* 去掉边框 */
+  /* padding: 10px 20px; */
+  /* 设置内边距 */
+  border-radius: 4px;
+  /* 设置圆角 */
+  /* transition: background-color 0.3s; */
+}
+.custom-menu .header-operations .menu-item-wallet:hover{
+  /* background-color: #1a1f2e !important;
+  border-color: transparent !important;
+  color: #FFFFFF !important; */
 }

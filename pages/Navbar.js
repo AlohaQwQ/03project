@@ -60,28 +60,32 @@ const Navbar = ({ switchLanguage }) => {
       className="custom-menu"
       style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'absolute', top: 0, zIndex: '999' }} // 设置菜单宽度和对齐方式
     >
-      {items.map(item => (
-        <Menu.Item key={item.key} style={{ flex: '0 10 200px', textAlign: 'center' }}> {/* 设置每个菜单项占满宽度并居中 */}
-          {item.path ? (
-            <Link href={item.path}><FormattedMessage id={item.key} /></Link>
-          ) : (
-            <span><FormattedMessage id={item.key} /></span>
-          )}
+      <div className='menu-wrap'>
+        {items.map(item => (
+          <Menu.Item key={item.key} style={{ flex: '0 10 200px', textAlign: 'center' }}> {/* 设置每个菜单项占满宽度并居中 */}
+            {item.path ? (
+              <Link href={item.path}><FormattedMessage id={item.key} /></Link>
+            ) : (
+              <span><FormattedMessage id={item.key} /></span>
+            )}
+          </Menu.Item>
+        ))}
+      </div>
+      <div className='header-operations'>
+        <Menu.Item className="ant-menu-item" key="language-toggle">
+          <Image
+            src="/resources/images/switch.png" // 根据当前语言选择图片  style={{ marginLeft: '800px' }}
+            alt={'lang'}
+            preview={false}
+            style={{ cursor: 'pointer', width: '30px', height: '30px' }} // 设置图片样式
+            onClick={handleLanguageToggle} // 点击切换语言
+          />
         </Menu.Item>
-      ))}
-      <Menu.Item className="ant-menu-item" key="language-toggle" style={{ marginLeft: '800px' }}>
-        <Image
-          src="/resources/images/switch.png" // 根据当前语言选择图片
-          alt={'lang'}
-          preview={false}
-          style={{ cursor: 'pointer', width: '30px', height: '30px' }} // 设置图片样式
-          onClick={handleLanguageToggle} // 点击切换语言
-        />
-      </Menu.Item>
 
-      <Menu.Item key="wallet-button" style={{ marginLeft: 'auto' }}> {/* 添加样式使按钮右对齐 */}
-        <ButtonWrapper className="wallet-button" /> {/* 将 ButtonWrapper 添加到菜单中 */}
-      </Menu.Item>
+        <Menu.Item key="wallet-button" className="menu-item-wallet"> {/* 添加样式使按钮右对齐  style={{ marginLeft: 'auto' }} */}
+          <ButtonWrapper className="wallet-button" /> {/* 将 ButtonWrapper 添加到菜单中 */}
+        </Menu.Item>
+      </div>
     </Menu>
   );
 };

@@ -3,7 +3,7 @@ import {
   CandyMachine,
   mintV2,
 } from "@metaplex-foundation/mpl-candy-machine";
-import { GuardReturn } from "../utils/checkerHelper";
+import { GuardReturn } from ".././utils/checkerHelper";
 import {
   AddressLookupTableInput,
   KeypairSigner,
@@ -27,7 +27,7 @@ import {
   fetchDigitalAsset,
   fetchJsonMetadata,
 } from "@metaplex-foundation/mpl-token-metadata";
-import { mintText } from "../settings";
+import { mintText } from ".././settings";
 import {
   Box,
   Button,
@@ -131,7 +131,7 @@ const mintClick = async (
     return;
   }
 
-  let buyBeer = true;
+  let buyBeer = false;
   console.log("buyBeer", process.env.NEXT_PUBLIC_BUYMARKBEER)
 
   if (process.env.NEXT_PUBLIC_BUYMARKBEER === "false") {
@@ -525,11 +525,16 @@ export function ButtonList({
     let buttonElement: GuardButtonList = {
       label: guard ? guard.label : "default",
       allowed: guard.allowed,
-      header: text ? text.header : "header missing in settings.tsx",
-      mintText: text ? text.mintText : "mintText missing in settings.tsx",
+      // header: text ? text.header : "header missing in settings.tsx",
+      // mintText: text ? text.mintText : "mintText missing in settings.tsx",
+      header: text ? text.header : "",
+      mintText: text ? text.mintText : "",
+      // buttonLabel: text
+      //   ? text.buttonLabel
+      //   : "buttonLabel missing in settings.tsx",
       buttonLabel: text
         ? text.buttonLabel
-        : "buttonLabel missing in settings.tsx",
+        : "",
       startTime,
       endTime,
       tooltip: guard.reason,
