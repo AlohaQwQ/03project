@@ -14,6 +14,8 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Button, Card, Row, Col, Spin, Layout, Modal, Menu, Image } from 'antd';
+import { FormattedMessage } from 'react-intl';
+
 const { Header, Sider, Content, Footer } = Layout;
 
 const MintNFTs = ({ onClusterChange }) => {
@@ -354,7 +356,7 @@ const MintNFTs = ({ onClusterChange }) => {
               marginBottom: '3%'
             }}> {/* 使用 Flexbox 布局 */}
 
-              <p style={{ fontSize: '60px' }}>零叁</p>
+              <p style={{ fontSize: '60px' }}><FormattedMessage id="zeroSan" /></p>
               <Image
                 alt="account"
                 src="/resources/images/account.png"
@@ -363,19 +365,19 @@ const MintNFTs = ({ onClusterChange }) => {
               />
             </Content>
 
-            <p style={{ marginBottom: '1%' }}>零叁社区中文区第一个金标社区!拥有自己的社区矩阵团队和多位科学家组建，及多位一级投研和A1pha及meme博主共创社区!</p>
-            <p style={{ marginBottom: '1%' }}>跟多家项目方及机构合作共同建设项目!</p>
-            <p style={{ marginBottom: '1%' }}>零叁的宗旨是:</p>
-            <p style={{ marginBottom: '1%' }}>谋士以身入局，举旗胜天半子。</p>
-            <p style={{ marginBottom: '1%' }}>吾以自身为饵，请天下人入局。</p>
-            <p style={{ marginBottom: '1%' }}>你既是零叁，零叁既是你!零叁属于团队不属于个人!</p>
+            <p style={{ marginBottom: '1%' }}><FormattedMessage id="communityIntro" /></p>
+            <p style={{ marginBottom: '1%' }}><FormattedMessage id="collaboration" /></p>
+            <p style={{ marginBottom: '1%' }}><FormattedMessage id="mission" /></p>
+            <p style={{ marginBottom: '1%' }}><FormattedMessage id="missionStatement1" /></p>
+            <p style={{ marginBottom: '1%' }}><FormattedMessage id="missionStatement2" /></p>
+            <p style={{ marginBottom: '1%' }}><FormattedMessage id="identity" /></p>
             <p style={{ marginTop: '3%' }}>
-              <a href="https://x.com/LINGSAN03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline', marginRight: '1%' }}>Twitter</a>
-              <a href="https://t.me/LINGSAN_03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline' }}>Telegram</a>
+              <a href="https://x.com/LINGSAN03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline', marginRight: '1%' }}><FormattedMessage id="twitter" /></a>
+              <a href="https://t.me/LINGSAN_03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline' }}><FormattedMessage id="telegram" /></a>
             </p>
           </div>
         </Content>
-        <Content style={{ display: 'flex', alignItems: 'center' }}>
+        <Content style={{ width: "30%", display: 'flex', alignItems: 'center' }}>
           <Image
             alt="03-logo"
             src="/resources/images/03-logo.png"
@@ -400,7 +402,7 @@ const MintNFTs = ({ onClusterChange }) => {
             style={{ width: '25px', height: 'auto' }} // 设置图片宽度自适应
             preview={false} // 禁用预览
           />
-          <p style={{ fontSize: '20px', marginLeft: '11%' }}>Presale</p> {/* 添加右边距以增加间隔 */}
+          <p style={{ fontSize: '20px', marginLeft: '11%' }}><FormattedMessage id="presale" /></p> {/* 添加右边距以增加间隔 */}
         </Content>
 
         <div style={{ marginTop: '1%', display: 'flex', flex: 1, gap: '1%' }}> {/* 使用 Flexbox 布局 */}
@@ -414,8 +416,8 @@ const MintNFTs = ({ onClusterChange }) => {
             }}
           >
             <div style={{ textAlign: 'left', width: '100%' }}>
-              <p style={{ fontSize: '16px', marginBottom: '5%' }}>Mint price</p>
-              <p style={{ fontSize: '24px', fontWeight: 'bold' }}>3SOL</p> {/* 设置字体大小和加粗 */}
+              <p style={{ fontSize: '16px', marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
+              <p style={{ fontSize: '24px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
             </div>
           </Content>
           <Content
@@ -431,15 +433,15 @@ const MintNFTs = ({ onClusterChange }) => {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
               <div style={{ textAlign: 'left' }}>
-                <p style={{ fontSize: '16px', marginBottom: '12%' }} > Availability</p>
-                <p style={{ fontSize: '24px', fontWeight: 'bold' }} > Presale only</p>
+                <p style={{ fontSize: '16px', marginBottom: '12%' }} ><FormattedMessage id="availability" /></p>
+                <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p>
               </div>
               <Button
                 onClick={canMint && disableMint ? onClick : null} // 当 canMint 为 true 且 disableMint 为 false 时，点击事件为 onClick
                 disabled={!canMint || !disableMint} // 根据 canMint 和 disableMint 设置按钮禁用状态
                 className={`mint-button ${!disableMint ? 'disabled' : ''}`} // 根据 disableMint 设置类名
               >
-                {!disableMint ? 'Not Mint' : canMint ? 'Mint' : 'Minted'}
+                <FormattedMessage id={!disableMint ? 'notMint' : canMint ? 'mint' : 'minted'} />
               </Button>
             </div>
           </Content>

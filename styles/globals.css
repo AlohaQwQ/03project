@@ -77,6 +77,7 @@ a {
 
 .custom-menu {
   background-color: #01050B;
+  font-family: 'WenYue' !important;
   /* 设置菜单背景色 */
   /* border: none; */
   /* 去掉边框 */
@@ -124,7 +125,7 @@ a {
 .wallet-button {
   color: white;
   /* 设置文字颜色 */
-  background-color: #1890ff;
+  background-color: #01050B;
   /* 设置背景颜色 */
   border: none;
   /* 去掉边框 */

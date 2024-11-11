@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pages/utils/verifyTx.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1731235275959,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1731235275959,
+            "name": "Commit-0",
+            "content": "import { BlockhashWithExpiryBlockHeight, PublicKey, Umi } from \"@metaplex-foundation/umi\";\nimport { notification } from \"antd\"; // 使用 Ant Design 的 notification 组件\nimport { base58 } from \"@metaplex-foundation/umi/serializers\";\n\nconst detectBotTax = (logs) => {\n  return logs.find((l) => l.includes(\"Candy Guard Botting\")) !== undefined;\n};\n\nexport const verifyTx = async (umi, signatures, blockhash, commitment) => {\n  const verifySignature = async (signature) => {\n    console.log(base58.deserialize(signature));\n    let transaction;\n    for (let i = 0; i < 30; i++) {\n      transaction = await umi.rpc.getTransaction(signature);\n      if (transaction) {\n        break;\n      }\n      await new Promise((resolve) => setTimeout(resolve, 3000));\n    }\n\n    if (!transaction) {\n      return { success: false, reason: \"No TX found\" };\n    }\n\n    if (detectBotTax(transaction.meta.logs)) {\n      return { success: false, reason: \"Bot Tax detected!\" };\n    }\n\n    return { success: true, mint: transaction.message.accounts[1] };\n  };\n\n  await umi.rpc.confirmTransaction(signatures[0], { strategy: { type: \"blockhash\", ...blockhash }, commitment });\n\n  const stati = await Promise.all(signatures.map(verifySignature));\n  let successful = [];\n  let failed = [];\n  stati.forEach((status) => {\n    if (status.success === true) {\n      successful.push(status.mint);\n    } else {\n      failed.push(status.reason);\n    }\n  });\n\n  if (failed.length > 0) {\n    notification.error({\n      message: `${failed.length} transactions failed!`,\n      description: failed.join(', '),\n      duration: 3,\n    });\n    failed.forEach((fail) => {\n      console.error(fail);\n    });\n  }\n\n  if (successful.length > 0) {\n    notification.success({\n      message: `${successful.length} transactions successful!`,\n      duration: 3,\n    });\n  }\n\n  return successful;\n};"
+        }
+    ]
+}

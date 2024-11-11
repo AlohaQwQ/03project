@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic'; // 确保导入 dynamic
 import { IntlProvider } from 'react-intl';
 import messages from './locales';
 import { useIntl } from 'react-intl';
-import Button from 'antd/es/button'; // 导入 Ant Design 的 Button
+import { Image } from 'antd'; // 导入 Ant Design 的 Button
+import { FormattedMessage } from 'react-intl';
 
 const items = [
   {
@@ -17,11 +18,11 @@ const items = [
   {
     label: 'Mint',
     key: 'mintnfts',
-    path: '/MintNFTs' // 添加路径
+    path: '/MintNFTs2' // 添加路径
   },
   {
     label: '03List',
-    key: 'nftlist',
+    key: 'nftList',
     path: '/NftList' // 添加路径
   },
   {
@@ -45,7 +46,8 @@ const Navbar = ({ switchLanguage }) => {
   const [currentLanguage, setCurrentLanguage] = useState('zh'); // 默认语言
 
   const handleLanguageToggle = () => {
-    const newLanguage = currentLanguage === 'zh' ? 'zh' : 'en'; // 切换语言
+    const newLanguage = currentLanguage === 'en' ? 'zh' : 'en'; // 切换语言
+    console.log("newLanguage:" + newLanguage)
     setCurrentLanguage(newLanguage);
     switchLanguage(newLanguage); // 调用传入的切换语言函数
   };
@@ -56,21 +58,25 @@ const Navbar = ({ switchLanguage }) => {
       selectedKeys={[current]}
       mode="horizontal"
       className="custom-menu"
-      style={{ width: '100%', display: 'flex', justifyContent: 'center' }} // 设置菜单宽度和对齐方式
+      style={{ width: '100%', display: 'flex', justifyContent: 'center',position:'absolute',top:0,zIndex:'999' }} // 设置菜单宽度和对齐方式
     >
       {items.map(item => (
         <Menu.Item key={item.key} style={{ flex: '0 10 200px', textAlign: 'center' }}> {/* 设置每个菜单项占满宽度并居中 */}
           {item.path ? (
-            <Link href={item.path}>{item.label}</Link>
+            <Link href={item.path}><FormattedMessage id={item.key} /></Link>
           ) : (
-            <span>{item.label}</span>
+            <span><FormattedMessage id={item.key} /></span>
           )}
         </Menu.Item>
       ))}
-      <Menu.Item key="language-toggle" style={{ marginLeft: 'auto' }}>
-        <Button onClick={handleLanguageToggle}>
-          {currentLanguage === 'zh' ? '中文' : 'English'} {/* 根据当前语言显示按钮文本 */}
-        </Button>
+      <Menu.Item className="ant-menu-item" key="language-toggle" style={{ marginLeft: '800px' }}>
+        <Image
+          src="/resources/images/switch.png" // 根据当前语言选择图片
+          alt={'lang'}
+          preview={false}
+          style={{ cursor: 'pointer', width: '30px', height: '30px' }} // 设置图片样式
+          onClick={handleLanguageToggle} // 点击切换语言
+        />
       </Menu.Item>
 
       <Menu.Item key="wallet-button" style={{ marginLeft: 'auto' }}> {/* 添加样式使按钮右对齐 */}

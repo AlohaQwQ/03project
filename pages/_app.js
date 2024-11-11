@@ -26,12 +26,15 @@ import { IntlProvider } from 'react-intl';
 import messages from './locales';
 
 import "@solana/wallet-adapter-react-ui/styles.css";
-
+import "./mintnft.css";
+import { UmiProvider } from "./utils/UmiProvider";
 import dynamic from 'next/dynamic';
 import { ConfigProvider } from 'antd'; // 导入 ConfigProvider
 
 function MyApp({ Component, pageProps }) {
-  const [network, setNetwork] = useState('https://dawn-solemn-patina.solana-mainnet.quiknode.pro/da677c8be19b38de7459b4a3cb37f2336c5480df');//https://dawn-solemn-patina.solana-mainnet.quiknode.pro/da677c8be19b38de7459b4a3cb37f2336c5480df
+  //https://rpc.shyft.to?api_key=GZdHhsJYG2Wa94Am
+  //https://dawn-solemn-patina.solana-mainnet.quiknode.pro/da677c8be19b38de7459b4a3cb37f2336c5480df
+  const [network, setNetwork] = useState('https://dawn-solemn-patina.solana-mainnet.quiknode.pro/da677c8be19b38de7459b4a3cb37f2336c5480df');
 
   const endpoint = useMemo(() => network, [network]);
 
@@ -68,6 +71,7 @@ function MyApp({ Component, pageProps }) {
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
             <MetaplexProvider>
+            <UmiProvider endpoint={endpoint}>
               <IntlProvider locale={locale} messages={messages[locale]}>
                 <div>
                   <Navbar switchLanguage={switchLanguage} /> {/* 在这里渲染 Navbar */}
@@ -75,6 +79,8 @@ function MyApp({ Component, pageProps }) {
                   <Component {...pageProps} /> {/* 渲染当前页面组件 */}
                 </div>
               </IntlProvider>
+            </UmiProvider>
+              
             </MetaplexProvider>
           </WalletModalProvider>
         </WalletProvider>

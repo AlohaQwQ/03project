@@ -12,9 +12,13 @@ const MouseParallaxProvider = ({ children }) => {
         const { clientX, clientY } = e;
         setMousePos({ x: clientX, y: clientY });
         api.start({
-            x: (clientX - window.innerWidth / 2) / 5, // 减小分母以增加移动距离
-            y: (clientY - window.innerHeight / 2) / 5, // 减小分母以增加移动距离
-            config: { tension: 200, friction: 30 }, // 调整弹簧配置
+           // x: (clientX - window.innerWidth / 2) / 5, // 减小分母以增加移动距离
+           // y: (clientY - window.innerHeight / 2) / 5, // 减小分母以增加移动距离
+           // config: { tension: 200, friction: 30 }, // 调整弹簧配置
+
+           x: (clientX - window.innerWidth / 2) / 1, // 减小分母以增加移动距离
+           y: (clientY - window.innerHeight / 2) / 1, // 减小分母以增加移动距离
+           config: { tension: 500, friction: 10 }, // 调整弹簧配置
         });
     }, [api]);
 
@@ -27,7 +31,7 @@ const MouseParallaxProvider = ({ children }) => {
 
     return (
         <MouseParallaxContext.Provider value={springProps}>
-            <div style={{ overflow: 'hidden', position: 'relative', width: '100vw', height: '100vh' }}>
+            <div style={{ overflow: 'hidden', position: 'relative', width: '110vw', height: '100vh' }}>
                 {children}
             </div>
         </MouseParallaxContext.Provider>
@@ -52,9 +56,20 @@ const ParallaxImage = ({ src, style, index, onLoadComplete }) => {
                 backgroundSize: 'cover',
                 width: '100%',
                 height: '100%',
-                position: 'absolute',
+                // position: 'absolute',
+                // ...style,
+                // ...trail[index], // 使用 trail 的样式
+
+                backgroundImage: 'url($(src})',
+                backgroundsize:'100%100%',
+                width: '105%',
+                height:'108%',
+                position:'absolute',
+                marginLeft:'-5%',
+                left:'0',
+                top: '-5%',
                 ...style,
-                ...trail[index], // 使用 trail 的样式
+                ...trail[index], //使用trail的样式
             }}
         >
             <Image

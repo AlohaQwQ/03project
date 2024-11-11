@@ -223,6 +223,7 @@ const NftList = () => {
 												// }}
 												<Image
 													alt={nft.name}
+													preview={false}
 													src={nft.image_uri}
 													onClick={() => handleImageClick(nft)} // 添加点击事件
 													style={{ cursor: 'pointer' }} // 鼠标悬停时显示为指针
@@ -272,6 +273,7 @@ const NftList = () => {
 				{selectedNft && (
 					<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', color: '#01050B' }}>
 						<Image
+							preview={false}
 							alt={selectedNft.name}
 							src={selectedNft.image_uri}
 							style={{ width: '50%', maxHeight: '400px', objectFit: 'contain', marginBottom: '20px' }}
