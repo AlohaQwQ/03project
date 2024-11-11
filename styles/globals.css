@@ -10,7 +10,11 @@ body {
   /* 设置英文字体为 Roboto */
   color: white;
 }
-div,ul,li,span{
+
+div,
+ul,
+li,
+span {
   box-sizing: border-box;
 }
 
@@ -158,7 +162,7 @@ a {
 }
 
 /* 首页导航样式调整 */
-.ant-menu.custom-menu{
+.ant-menu.custom-menu {
   width: 100%;
   padding: 0;
   margin: 0;
@@ -167,20 +171,24 @@ a {
   justify-content: center;
   align-items: center;
 }
-.custom-menu .menu-wrap{
+
+.custom-menu .menu-wrap {
   width: auto;
   height: 48px;
   display: flex;
   align-items: center;
 }
-.custom-menu .menu-wrap .ant-menu-item{
+
+.custom-menu .menu-wrap .ant-menu-item {
   padding: 0 24px;
   margin-right: 150px;
 }
-.custom-menu .menu-wrap .ant-menu-item:nth-last-child(1){
+
+.custom-menu .menu-wrap .ant-menu-item:nth-last-child(1) {
   margin-right: 0;
 }
-.custom-menu .header-operations{
+
+.custom-menu .header-operations {
   position: absolute;
   right: 20px;
   top: 0;
@@ -191,7 +199,8 @@ a {
   display: flex;
   align-items: center;
 }
-.custom-menu .header-operations .menu-item-wallet{
+
+.custom-menu .header-operations .menu-item-wallet {
   width: auto;
   padding: 0;
   margin: 0;
@@ -208,7 +217,8 @@ a {
   /* 设置圆角 */
   /* transition: background-color 0.3s; */
 }
-.custom-menu .header-operations .menu-item-wallet:hover{
+
+.custom-menu .header-operations .menu-item-wallet:hover {
   /* background-color: #1a1f2e !important;
   border-color: transparent !important;
   color: #FFFFFF !important; */
