@@ -10,9 +10,9 @@ import { useUmi } from "./utils/useUmi";
 import { fetchCandyMachine, safeFetchCandyGuard, CandyGuard, CandyMachine, AccountVersion } from "@metaplex-foundation/mpl-candy-machine";
 import { guardChecker } from "./utils/checkAllowed";
 import { Button, Modal, Typography, Spin, Card, Row, Col } from 'antd';
-import { ButtonList } from "./components/mintButton";
+import ButtonList from "./components/mintButton";
 import { ShowNft } from "./components/showNft";
-import { InitializeModal } from "./components/initializeModal";
+import InitializeModal from "./components/initializeModal";
 import { image, headerText } from "./settings";
 import { useSolanaTime } from "./utils/SolanaTimeContext";
 
@@ -34,7 +34,7 @@ const useCandyMachine = (
 ) => {
   const [candyMachine, setCandyMachine] = useState();
   const [candyGuard, setCandyGuard] = useState();
-  
+
   useEffect(() => {
     (async () => {
       if (checkEligibility) {
@@ -115,7 +115,7 @@ const MintNFTs2 = () => {
         return;
       }
       setFirstRun(false);
-      
+
       const { guardReturn, ownedTokens } = await guardChecker(
         umi, candyGuard, candyMachine, solanaTime
       );

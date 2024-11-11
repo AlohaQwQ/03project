@@ -6,9 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild": "tsc --noEmit"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.4",
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@metaplex-foundation/js": "0.19.3",
     "@metaplex/js": "^4.12.0",
     "@solana/wallet-adapter-base": "^0.9.17",
@@ -34,7 +39,9 @@
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
     "react-spring": "^9.7.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-slick": "^0.29.0",
+    "typescript": "4.9.5"
   },
   "devDependencies": {
     "eslint": "8.18.0",

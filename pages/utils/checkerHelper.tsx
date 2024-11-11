@@ -18,29 +18,34 @@ import {
   publicKey,
 } from "@metaplex-foundation/umi";
 import { DigitalAssetWithToken } from "@metaplex-foundation/mpl-token-metadata";
-import { notification } from "antd"; // 使用 Ant Design 的 notification 组件
+import { createStandaloneToast } from "@chakra-ui/react";
 
-// 保留 GuardReturn 结构定义
-export const GuardReturn = {
-  label: "",
-  allowed: false,
-  minting: undefined,
-  loadingText: undefined,
-  reason: undefined,
-  maxAmount: 0,
-  mintAmount: undefined,
-};
+export interface GuardReturn {
+  label: string;
+  allowed: boolean;
+  minting?: boolean;
+  loadingText?: string;
+  reason?: string;
+  maxAmount: number;
+  mintAmount?: number;
+}
 
-export const addressGateChecker = (wallet, address) => {
-  return wallet === address;
+export const addressGateChecker = (wallet: PublicKey, address: PublicKey) => {
+  if (wallet != address) {
+    return false;
+  }
+  return true;
 };
 
 export const allocationChecker = async (
-  umi,
-  candyMachine,
-  guard
+  umi: Umi,
+  candyMachine: CandyMachine,
+  guard: {
+    label: string;
+    guards: GuardSet;
+  }
 ) => {
-  const allocation = guard.guards.allocation;
+  const allocation = guard.guards.allocation as Some<Allocation>;
 
   try {
     const mintCounter = await safeFetchAllocationTrackerFromSeeds(umi, {
@@ -53,10 +58,12 @@ export const allocationChecker = async (
       return allocation.value.limit - mintCounter.count;
     } else {
       // no allocation mint Counter found - not created yet
-      notification.error({
-        message: "Allocation Guard not Initialized!",
+      createStandaloneToast().toast({
+        title: "Allocation Guard not Initialized!",
         description: "Minting will fail!",
-        duration: 9,
+        status: "error",
+        duration: 900,
+        isClosable: true,
       });
       return allocation.value.limit;
     }
@@ -68,16 +75,19 @@ export const allocationChecker = async (
 };
 
 export const solBalanceChecker = (
-  solBalance,
-  solAmount
+  solBalance: SolAmount,
+  solAmount: SolAmount
 ) => {
-  return solAmount <= solBalance;
+  if (solAmount > solBalance) {
+    return false;
+  }
+  return true;
 };
 
 export const tokenBalanceChecker = async (
-  umi,
-  tokenAmount,
-  tokenMint
+  umi: Umi,
+  tokenAmount: bigint,
+  tokenMint: PublicKey
 ) => {
   const ata = findAssociatedTokenPda(umi, {
     mint: tokenMint,
@@ -86,15 +96,21 @@ export const tokenBalanceChecker = async (
 
   const balance = await fetchToken(umi, umi.identity.publicKey);
 
-  return Number(balance.amount) >= Number(tokenAmount);
+  if (Number(balance.amount) < Number(tokenAmount)) {
+    return false;
+  }
+  return true;
 };
 
 export const mintLimitChecker = async (
-  umi,
-  candyMachine,
-  guard
+  umi: Umi,
+  candyMachine: CandyMachine,
+  guard: {
+    label: string;
+    guards: GuardSet;
+  }
 ) => {
-  const mintLimit = guard.guards.mintLimit;
+  const mintLimit = guard.guards.mintLimit as Some<MintLimit>;
 
   //not minted yet
   try {
@@ -118,8 +134,8 @@ export const mintLimitChecker = async (
 };
 
 export const ownedNftChecker = async (
-  ownedNfts,
-  requiredCollection
+  ownedNfts: DigitalAssetWithToken[],
+  requiredCollection: PublicKey
 ) => {
   const count = ownedNfts.filter(
     (el) =>
@@ -131,9 +147,9 @@ export const ownedNftChecker = async (
 };
 
 export const allowlistChecker = (
-  allowLists,
-  umi,
-  guardlabel
+  allowLists: Map<string, string[]>,
+  umi: Umi,
+  guardlabel: string
 ) => {
   if (!allowLists.has(guardlabel)) {
     console.error(`Guard ${guardlabel}; allowlist missing from allowlist.tsx`);
@@ -149,7 +165,7 @@ export const allowlistChecker = (
   return true;
 };
 
-export const getSolanaTime = async (umi) => {
+export const getSolanaTime = async (umi: Umi) => {
   const slot = await umi.rpc.getSlot();
 
   let solanaTime = await umi.rpc.getBlockTime(slot);
@@ -159,7 +175,7 @@ export const getSolanaTime = async (umi) => {
 };
 
 export const checkDateRequired = (
-  guards
+  guards: { label: string; guards: GuardSet }[]
 ) => {
   for (const guard of guards) {
     if (guard.guards.startDate || guard.guards.endDate) {
@@ -171,9 +187,9 @@ export const checkDateRequired = (
 };
 
 export const checkSolBalanceRequired = (
-  guards
+  guards: { label: string; guards: GuardSet }[]
 ) => {
-  let solBalanceRequired = false;
+  let solBalanceRequired: boolean = false;
   guards.forEach((guard) => {
     if (guard.guards.freezeSolPayment || guard.guards.solPayment) {
       solBalanceRequired = true;
@@ -184,9 +200,9 @@ export const checkSolBalanceRequired = (
 };
 
 export const checkTokensRequired = (
-  guards
+  guards: { label: string; guards: GuardSet }[]
 ) => {
-  let nftBalanceRequired = false;
+  let nftBalanceRequired: boolean = false;
   guards.forEach((guard) => {
     if (
       guard.guards.nftBurn ||
@@ -201,10 +217,10 @@ export const checkTokensRequired = (
 };
 
 export const calculateMintable = (
-  mintableAmount,
-  newAmount
+  mintableAmount: number,
+  newAmount: number
 ) => {
-  if (mintableAmount > newAmount){
+  if (mintableAmount > newAmount) {
     mintableAmount = newAmount;
   }
 
@@ -212,13 +228,24 @@ export const calculateMintable = (
   let maxmintamount = 0;
   try {
     maxmintamount = Number(process.env.NEXT_PUBLIC_MAXMINTAMOUNT)
-  } catch (e){
+  } catch (e) {
     console.error('process.env.NEXT_PUBLIC_MAXMINTAMOUNT is not a number!', e)
     return mintableAmount;
   }
-  if (mintableAmount > maxmintamount){
+  if (mintableAmount > maxmintamount) {
     mintableAmount = maxmintamount;
   }
 
   return mintableAmount;
 };
+
+const checkerHelper2 = () => {
+  return (
+    <div>
+      <p> </p>
+    </div>
+  );
+
+};
+
+export default checkerHelper2;

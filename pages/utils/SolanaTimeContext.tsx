@@ -34,3 +34,13 @@ export const SolanaTimeProvider = ({
     </SolanaTimeContext.Provider>
   );
 };
+
+const SolanaTimeContext2 = () => {
+  return (
+    <div>
+      <p>.</p>
+    </div>
+  );
+};
+
+export default SolanaTimeContext2;

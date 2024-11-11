@@ -16,8 +16,18 @@ export function useUmi(): Umi {
   if (!umi) {
     throw new Error(
       "Umi context was not initialized. " +
-        "Did you forget to wrap your app with <UmiProvider />?"
+      "Did you forget to wrap your app with <UmiProvider />?"
     );
   }
   return umi;
 }
+
+const useUmi2 = () => {
+  return (
+    <div>
+      <p> </p>
+    </div>
+  );
+
+};
+export default useUmi2;

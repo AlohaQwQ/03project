@@ -16,8 +16,8 @@ export const UmiProvider = ({
 }) => {
   const wallet = useWallet();
   const umi = createUmi(endpoint)
-  .use(mplTokenMetadata())
-  .use(mplCandyMachine())
+    .use(mplTokenMetadata())
+    .use(mplCandyMachine())
   if (wallet.publicKey === null) {
     const noopSigner = createNoopSigner(publicKey("11111111111111111111111111111111"))
     umi.use(signerIdentity(noopSigner));
@@ -27,3 +27,13 @@ export const UmiProvider = ({
 
   return <UmiContext.Provider value={{ umi }}>{children}</UmiContext.Provider>;
 };
+
+const UmiProvider2 = () => {
+  return (
+    <div>
+      <p> </p>
+    </div>
+  );
+
+};
+export default UmiProvider2;

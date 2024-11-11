@@ -18,7 +18,7 @@ const items = [
   {
     label: 'Mint',
     key: 'mintnfts',
-    path: '/MintNFTs2' // 添加路径
+    path: '/MintNFTs3' // 添加路径
   },
   {
     label: '03List',
@@ -58,7 +58,7 @@ const Navbar = ({ switchLanguage }) => {
       selectedKeys={[current]}
       mode="horizontal"
       className="custom-menu"
-      style={{ width: '100%', display: 'flex', justifyContent: 'center',position:'absolute',top:0,zIndex:'999' }} // 设置菜单宽度和对齐方式
+      style={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'absolute', top: 0, zIndex: '999' }} // 设置菜单宽度和对齐方式
     >
       {items.map(item => (
         <Menu.Item key={item.key} style={{ flex: '0 10 200px', textAlign: 'center' }}> {/* 设置每个菜单项占满宽度并居中 */}

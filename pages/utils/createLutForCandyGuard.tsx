@@ -32,17 +32,16 @@ import {
 } from "@metaplex-foundation/umi";
 
 export const createLutForCandyMachineAndGuard = async (
-  umi,
-  recentSlot,
-  candyMachine,
-  candyGuard,
-  lutAuthority
-) => {
+  umi: Umi,
+  recentSlot: number,
+  candyMachine: CandyMachine,
+  candyGuard: CandyGuard,
+  lutAuthority?: Signer
+): Promise<[TransactionBuilder, AddressLookupTableInput]> => {
   const addresses = await getLutAddressesForCandyMachineAndGuard(
     umi,
     candyMachine,
-    candyGuard,
-    lutAuthority
+    candyGuard
   );
 
   return createLut(umi, {
@@ -53,11 +52,11 @@ export const createLutForCandyMachineAndGuard = async (
 };
 
 export const getLutAddressesForCandyMachineAndGuard = async (
-  umi,
-  candyMachine,
-  candyGuard,
-  collectionUpdateAuthority
-) => {
+  umi: Umi,
+  candyMachine: CandyMachine,
+  candyGuard: CandyGuard,
+  collectionUpdateAuthority?: PublicKey
+): Promise<PublicKey[]> => {
   if (!umi.identity.publicKey) {
     return [];
   }
@@ -74,10 +73,10 @@ export const getLutAddressesForCandyMachineAndGuard = async (
     updateAuthority: collectionUpdateAuthority,
     delegate: collectionAuthorityPda,
   });
-  const guardKeys = [];
-
+  const guardKeys: PublicKey[] = [];
   // async iterate through all candyGuard groups and add all guards to guardKeys
-  for (const group of candyGuard.groups) {
+
+  candyGuard.groups.forEach(async (group) => {
     if (group.guards.addressGate.__option === "Some") {
       guardKeys.push(group.guards.addressGate.value.address);
     }
@@ -120,7 +119,7 @@ export const getLutAddressesForCandyMachineAndGuard = async (
       guardKeys.push(group.guards.nftPayment.value.requiredCollection);
     }
     if (group.guards.programGate.__option === "Some") {
-      // push the array content from group.guards.programGate.value.additional into guardKeys
+      //push the array content from group.guards.programGate.value.additional into guardKeys
       group.guards.programGate.value.additional.forEach((programGate) => {
         guardKeys.push(programGate);
       });
@@ -142,7 +141,7 @@ export const getLutAddressesForCandyMachineAndGuard = async (
       guardKeys.push(group.guards.tokenPayment.value.mint);
       guardKeys.push(group.guards.tokenPayment.value.destinationAta);
     }
-  }
+  });
 
   // Add collection Authority PDA
   guardKeys.push(
@@ -180,3 +179,12 @@ export const getLutAddressesForCandyMachineAndGuard = async (
     collectionAuthorityRecord,
   ]);
 };
+
+const createLutForCandyGuard2 = () => {
+  return (
+    <div>
+      <p> </p>
+    </div>
+  );
+};
+export default createLutForCandyGuard2;

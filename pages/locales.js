@@ -1,4 +1,6 @@
-const messages = {
+import React from 'react';
+
+export const messages = {
   en: {
     home: "Home",
     nftList: "03NFT",
@@ -51,4 +53,12 @@ const messages = {
   },
 };
 
-export default messages;
+const Locales = () => {
+  return (
+    <div>
+
+    </div>
+  );
+};
+
+export default Locales;

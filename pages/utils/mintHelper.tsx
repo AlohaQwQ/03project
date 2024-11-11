@@ -36,28 +36,19 @@ import {
   transferSol,
 } from "@metaplex-foundation/mpl-toolbox";
 import { toWeb3JsTransaction } from "@metaplex-foundation/umi-web3js-adapters";
-import { notification } from "antd"; // 使用 Ant Design 的 notification 组件
 
-// 保留 GuardButtonList 结构定义
-export const GuardButtonList = {
-  label: "",
-  allowed: false,
-  minting: undefined,
-  loadingText: undefined,
-  reason: undefined,
-  maxAmount: 0,
-  mintAmount: undefined,
-  header: "",
-  mintText: "",
-  buttonLabel: "",
-  startTime: BigInt(0),
-  endTime: BigInt(0),
-  tooltip: undefined,
-};
+export interface GuardButtonList extends GuardReturn {
+  header: string;
+  mintText: string;
+  buttonLabel: string;
+  startTime: bigint;
+  endTime: bigint;
+  tooltip?: string;
+}
 
 export const chooseGuardToUse = (
-  guard,
-  candyGuard
+  guard: GuardReturn,
+  candyGuard: CandyGuard
 ) => {
   let guardGroup = candyGuard?.groups.find(
     (item) => item.label === guard.label
@@ -81,9 +72,9 @@ export const chooseGuardToUse = (
 };
 
 export const mintArgsBuilder = (
-  candyMachine,
-  guardToUse,
-  ownedTokens
+  candyMachine: CandyMachine,
+  guardToUse: GuardGroup<DefaultGuardSet>,
+  ownedTokens: DigitalAssetWithToken[]
 ) => {
   const guards = guardToUse.guards;
   let ruleset = undefined;
@@ -132,6 +123,7 @@ export const mintArgsBuilder = (
 
   if (guards.nftBurn.__option === "Some") {
     const requiredCollection = guards.nftBurn.value.requiredCollection;
+    //TODO: have the use choose the NFT
     const nft = ownedTokens.find(
       (el) =>
         el.metadata.collection.__option === "Some" &&
@@ -272,9 +264,9 @@ export const mintArgsBuilder = (
 
 // build route instruction for allowlist guard
 export const routeBuilder = async (
-  umi,
-  guardToUse,
-  candyMachine
+  umi: Umi,
+  guardToUse: GuardGroup<DefaultGuardSet>,
+  candyMachine: CandyMachine
 ) => {
   let tx2 = transactionBuilder();
 
@@ -290,7 +282,7 @@ export const routeBuilder = async (
       merkleRoot: getMerkleRoot(allowlist),
       user: publicKey(umi.identity),
     });
-    console.log("allowListProof",allowListProof)
+    console.log("allowListProof", allowListProof)
     if (allowListProof === null) {
       console.log("null")
       tx2 = tx2.add(
@@ -314,11 +306,11 @@ export const routeBuilder = async (
 
 // combine transactions. return TransactionBuilder[]
 export const combineTransactions = (
-  umi,
-  txs,
-  tables
+  umi: Umi,
+  txs: TransactionBuilder[],
+  tables: AddressLookupTableInput[]
 ) => {
-  const returnArray = [];
+  const returnArray: TransactionBuilder[] = [];
   let builder = transactionBuilder();
 
   // combine as many transactions as possible into one
@@ -341,16 +333,21 @@ export const combineTransactions = (
 };
 
 export const buildTx = (
-  umi,
-  candyMachine,
-  candyGuard,
-  nftMint,
-  guardToUse,
-  mintArgs,
-  luts,
-  latestBlockhash,
-  units,
-  buyBeer
+  umi: Umi,
+  candyMachine: CandyMachine,
+  candyGuard: CandyGuard,
+  nftMint: Signer,
+  guardToUse:
+    | GuardGroup<DefaultGuardSet>
+    | {
+      label: string;
+      guards: undefined;
+    },
+  mintArgs: Partial<DefaultGuardSetMintArgs> | undefined,
+  luts: AddressLookupTableInput[],
+  latestBlockhash: BlockhashWithExpiryBlockHeight,
+  units: number,
+  buyBeer: boolean
 ) => {
   let tx = transactionBuilder().add(
     mintV2(umi, {
@@ -382,7 +379,7 @@ export const buildTx = (
 };
 
 // simulate CU based on Sammys gist https://gist.github.com/stegaBOB/7c0cdc916db4524dd9c285f9e4309475
-export const getRequiredCU = async (umi, transaction) => {
+export const getRequiredCU = async (umi: Umi, transaction: Transaction) => {
   const defaultCU = 800_000;
   const web3tx = toWeb3JsTransaction(transaction);
   let connection = new Connection(umi.rpc.getEndpoint(), "finalized");
@@ -394,4 +391,15 @@ export const getRequiredCU = async (umi, transaction) => {
     return defaultCU;
   }
   return simulatedTx.value.unitsConsumed * 1.2 || defaultCU;
+}
+
+const mintHelper = () => {
+  return (
+    <div>
+      <p> </p>
+    </div>
+  );
+
 };
+
+export default mintHelper;

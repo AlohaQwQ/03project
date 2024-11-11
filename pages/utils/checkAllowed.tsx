@@ -33,6 +33,7 @@ import {
   checkSolBalanceRequired,
   mintLimitChecker,
   ownedNftChecker,
+  GuardReturn,
   allocationChecker,
   calculateMintable,
 } from "./checkerHelper";
@@ -43,33 +44,25 @@ import {
 } from "@metaplex-foundation/mpl-token-metadata";
 import { checkAtaValid } from "./validateConfig";
 
-// 保留 GuardReturn 结构定义
-export const GuardReturn = {
-  label: "",
-  allowed: false,
-  minting: undefined,
-  loadingText: undefined,
-  reason: undefined,
-  maxAmount: 0,
-  mintAmount: undefined,
-};
-
 export const guardChecker = async (
-  umi,
-  candyGuard,
-  candyMachine,
-  solanaTime
+  umi: Umi,
+  candyGuard: CandyGuard,
+  candyMachine: CandyMachine,
+  solanaTime: bigint
 ) => {
-  let guardReturn = []; // 移除类型定义
-  let ownedTokens = [];
-  
+  let guardReturn: GuardReturn[] = [];
+  let ownedTokens: DigitalAssetWithToken[] = [];
   if (!candyGuard) {
+    if (guardReturn.length === 0) {
+      //guardReturn.push({ label: "default", allowed: false });
+    }
     return { guardReturn, ownedNfts: ownedTokens };
   }
 
-  let guardsToCheck = candyGuard.groups;
+  let guardsToCheck: { label: string; guards: GuardSet }[] = candyGuard.groups;
   guardsToCheck.push({ label: "default", guards: candyGuard.guards });
 
+  //no wallet connected. return dummies
   const dummyPublicKey = publicKey("11111111111111111111111111111111");
   if (
     umi.identity.publicKey === dummyPublicKey ||
@@ -90,7 +83,8 @@ export const guardChecker = async (
     checkAtaValid(umi, guardsToCheck);
   }
 
-  let solBalance = sol(0);
+
+  let solBalance: SolAmount = sol(0);
   if (checkSolBalanceRequired(guardsToCheck)) {
     try {
       const account = await umi.rpc.getAccount(umi.identity.publicKey);
@@ -121,7 +115,7 @@ export const guardChecker = async (
     let mintableAmount = Number(candyMachine.data.itemsAvailable) - Number(candyMachine.itemsRedeemed);
 
     if (singleGuard.addressGate.__option === "Some") {
-      const addressGate = singleGuard.addressGate;
+      const addressGate = singleGuard.addressGate as Some<AddressGate>;
       if (
         !addressGateChecker(
           umi.identity.publicKey,
@@ -168,8 +162,8 @@ export const guardChecker = async (
     }
 
     if (singleGuard.endDate.__option === "Some") {
-      const endDate = singleGuard.endDate;
-      if (solanaTime > endDate.value.date) {
+      const addressGate = singleGuard.endDate as Some<EndDate>;
+      if (solanaTime > addressGate.value.date) {
         guardReturn.push({
           label: eachGuard.label,
           allowed: false,
@@ -182,7 +176,8 @@ export const guardChecker = async (
     }
 
     if (singleGuard.freezeSolPayment.__option === "Some") {
-      const freezeSolPayment = singleGuard.freezeSolPayment;
+      const freezeSolPayment =
+        singleGuard.freezeSolPayment as Some<FreezeSolPayment>;
       const payableAmount = solBalance.basisPoints / freezeSolPayment.value.lamports.basisPoints;
       mintableAmount = calculateMintable(mintableAmount, Number(payableAmount));
 
@@ -216,7 +211,8 @@ export const guardChecker = async (
     }
 
     if (singleGuard.freezeTokenPayment.__option === "Some") {
-      const freezeTokenPayment = singleGuard.freezeTokenPayment;
+      const freezeTokenPayment =
+        singleGuard.freezeTokenPayment as Some<FreezeTokenPayment>;
       const digitalAssetWithToken = ownedTokens?.find(
         (el) => el.mint.publicKey === freezeTokenPayment.value.mint
       );
@@ -239,7 +235,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.nftBurn.__option === "Some") {
-      const nftBurn = singleGuard.nftBurn;
+      const nftBurn = singleGuard.nftBurn as Some<NftBurn>;
       const payableAmount = await ownedNftChecker(ownedTokens, nftBurn.value.requiredCollection);
       mintableAmount = calculateMintable(mintableAmount, payableAmount);
       if (payableAmount === 0) {
@@ -255,12 +251,12 @@ export const guardChecker = async (
     }
 
     if (singleGuard.nftGate.__option === "Some") {
-      const nftGate = singleGuard.nftGate;
+      const nftGate = singleGuard.nftGate as Some<NftGate>;
       if (!ownedNftChecker(ownedTokens, nftGate.value.requiredCollection)) {
         guardReturn.push({
           label: eachGuard.label,
           allowed: false,
-          reason: "No NFT of the required held!",
+          reason: "No NFT of the requred held!",
           maxAmount: 0
         });
         console.info(`${eachGuard.label}: NftGate no NFT held!`);
@@ -269,7 +265,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.nftPayment.__option === "Some") {
-      const nftPayment = singleGuard.nftPayment;
+      const nftPayment = singleGuard.nftPayment as Some<NftPayment>;
       const payableAmount = await ownedNftChecker(ownedTokens, nftPayment.value.requiredCollection);
       mintableAmount = calculateMintable(mintableAmount, payableAmount);
       if (payableAmount === 0) {
@@ -285,7 +281,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.redeemedAmount.__option === "Some") {
-      const redeemedAmount = singleGuard.redeemedAmount;
+      const redeemedAmount = singleGuard.redeemedAmount as Some<RedeemedAmount>;
       const payableAmount = redeemedAmount.value.maximum - candyMachine.itemsRedeemed;
 
       mintableAmount = calculateMintable(mintableAmount, Number(payableAmount));
@@ -304,7 +300,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.solPayment.__option === "Some") {
-      const solPayment = singleGuard.solPayment;
+      const solPayment = singleGuard.solPayment as Some<SolPayment>;
       let payableAmount = 0;
       if (solPayment.value.lamports.basisPoints !== BigInt(0)) {
         payableAmount = Number(solBalance.basisPoints) / Number(solPayment.value.lamports.basisPoints);
@@ -324,7 +320,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.startDate.__option === "Some") {
-      const startDate = singleGuard.startDate;
+      const startDate = singleGuard.startDate as Some<StartDate>;
       if (solanaTime < startDate.value.date) {
         guardReturn.push({
           label: eachGuard.label,
@@ -333,12 +329,13 @@ export const guardChecker = async (
           maxAmount: 0
         });
         console.info(`${eachGuard.label} StartDate not reached!`);
+
         continue;
       }
     }
 
     if (singleGuard.tokenBurn.__option === "Some") {
-      const tokenBurn = singleGuard.tokenBurn;
+      const tokenBurn = singleGuard.tokenBurn as Some<TokenBurn>;
       const digitalAssetWithToken = ownedTokens?.find(
         (el) => el.mint.publicKey === tokenBurn.value.mint
       );
@@ -360,7 +357,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.tokenGate.__option === "Some") {
-      const tokenGate = singleGuard.tokenGate;
+      const tokenGate = singleGuard.tokenGate as Some<TokenGate>;
       const digitalAssetWithToken = ownedTokens?.find(
         (el) => el.mint.publicKey === tokenGate.value.mint
       );
@@ -380,7 +377,7 @@ export const guardChecker = async (
     }
 
     if (singleGuard.tokenPayment.__option === "Some") {
-      const tokenPayment = singleGuard.tokenPayment;
+      const tokenPayment = singleGuard.tokenPayment as Some<TokenPayment>;
       const digitalAssetWithToken = ownedTokens?.find(
         (el) => el.mint.publicKey === tokenPayment.value.mint
       );
@@ -399,10 +396,12 @@ export const guardChecker = async (
       }
       const payableAmount = tokenPayment.value.amount / digitalAssetWithToken.token.amount;
       mintableAmount = calculateMintable(mintableAmount, Number(payableAmount));
+
     }
 
     if (singleGuard.token2022Payment.__option === "Some") {
-      const token2022Payment = singleGuard.token2022Payment;
+      const token2022Payment =
+        singleGuard.token2022Payment as Some<TokenPayment>;
       const digitalAssetWithToken = ownedTokens?.find(
         (el) => el.mint.publicKey === token2022Payment.value.mint
       );
@@ -421,9 +420,21 @@ export const guardChecker = async (
       }
       const payableAmount = token2022Payment.value.amount / digitalAssetWithToken.token.amount;
       mintableAmount = calculateMintable(mintableAmount, Number(payableAmount));
-    }
 
+    }
     guardReturn.push({ label: eachGuard.label, allowed: true, maxAmount: mintableAmount });
   }
   return { guardReturn, ownedTokens };
 };
+
+const checkAllowed2 = () => {
+  return (
+    <div>
+      <p> </p>
+    </div>
+  );
+
+
+};
+
+export default checkAllowed2;
