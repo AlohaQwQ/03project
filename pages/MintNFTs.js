@@ -28,7 +28,7 @@ const MintNFTs = ({ onClusterChange }) => {
   const [canMint, setCanMint] = useState(true);
   const [stopMint, setStopMint] = useState(true);
 
-  const candyMachineAddress = new PublicKey("BB622ucoRBPB1QCCBVxNvwVbYXzDpyPm8RsUShC9iGqG");//Soe1xuE4EU81KsnuJ66SJkiSyGvDfNzPAk1g4qi6KjF BB622ucoRBPB1QCCBVxNvwVbYXzDpyPm8RsUShC9iGqG
+  const candyMachineAddress = new PublicKey("Soe1xuE4EU81KsnuJ66SJkiSyGvDfNzPAk1g4qi6KjF");//Soe1xuE4EU81KsnuJ66SJkiSyGvDfNzPAk1g4qi6KjF BB622ucoRBPB1QCCBVxNvwVbYXzDpyPm8RsUShC9iGqG
 
   let candyMachine;
   let walletBalance;

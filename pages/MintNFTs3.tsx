@@ -311,18 +311,20 @@ export default function Home() {
                   </p>
                   <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p>
                 </div>
-                <ButtonList
-                  guardList={guards}
-                  candyMachine={candyMachine}
-                  candyGuard={candyGuard}
-                  umi={umi}
-                  ownedTokens={ownedTokens}
-                  setGuardList={setGuards}
-                  mintsCreated={mintsCreated}
-                  setMintsCreated={setMintsCreated}
-                  onOpen={onShowNftOpen}
-                  setCheckEligibility={setCheckEligibility}
-                />
+                <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
+                  <ButtonList
+                    guardList={guards}
+                    candyMachine={candyMachine}
+                    candyGuard={candyGuard}
+                    umi={umi}
+                    ownedTokens={ownedTokens}
+                    setGuardList={setGuards}
+                    mintsCreated={mintsCreated}
+                    setMintsCreated={setMintsCreated}
+                    onOpen={onShowNftOpen}
+                    setCheckEligibility={setCheckEligibility}
+                  />
+                </div>
                 {/* <Button
                   //onClick={canMint && disableMint ? onClick : null} // 当 canMint 为 true 且 disableMint 为 false 时，点击事件为 onClick
                   disabled={!canMint || !disableMint} // 根据 canMint 和 disableMint 设置按钮禁用状态

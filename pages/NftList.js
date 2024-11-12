@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { signAndConfirmTransactionFe } from "./utilityfunc";
-import disPic from './resources/images/upload-file.jpg';
+// import disPic from './resources/images/upload-file.jpg';
 import { Button, Card, Row, Col, Spin, Layout, Modal, Image } from 'antd'; // 确保 Layout 在这里导入
 //import AppHeader from './AppHeader'; // 导入 AppHeader 组件
 import { FormattedMessage } from 'react-intl';
@@ -12,7 +12,7 @@ const { Content } = Layout; // 确保在这里定义 Content
 
 const NftList = () => {
 	const [file, setfile] = useState();
-	const [displayPic, setDisplayPic] = useState(disPic);
+	// const [displayPic, setDisplayPic] = useState(disPic);
 	const [network, setnetwork] = useState("mainnet-beta");
 	const [publicKey, setPublicKey] = useState('9d7Cj7v6sTWDJPYjfuHRwwZkNyj9Ydc4JoLjCx9kbM3n');
 	const [collectionAddress, setCollectionAddress] = useState('5ZXCtgPopb3vjPjQ4XQPWyS8WjDiZvTkTDPKE8q9pKe1');
