@@ -20,7 +20,7 @@ const Home3 = () => {
 	// )}
 
 	return (
-		<Layout style={{ backgroundColor: '#01050B', margin: 0, padding: 0,overflow:'hidden',height:'100vh',width:'100vw'}}>
+		<Layout style={{ backgroundColor: '#01050B', margin: 0, padding: 0, overflow: 'hidden', height: '100vh', width: '100vw' }}>
 			<Content>
 
 				<MouseParallax onLoadComplete={handleLoadComplete} />
