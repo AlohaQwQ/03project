@@ -19,6 +19,8 @@ import { image, headerText } from "./settings";
 import { useSolanaTime } from "./utils/SolanaTimeContext";
 import { Button, Card, Row, Col, Spin, Layout, Modal, Menu, Image } from 'antd';
 import { FormattedMessage } from 'react-intl';
+import useScreenSize from './screenSize';
+
 const { Header, Sider, Content, Footer } = Layout;
 
 const WalletMultiButtonDynamic = dynamic(
@@ -115,10 +117,7 @@ const useCandyMachine = (
   }, [umi, checkEligibility, candyMachineId, firstRun, setfirstRun, toast]);
 
   return { candyMachine, candyGuard };
-
-
 };
-
 
 export default function Home() {
   const umi = useUmi();
@@ -203,7 +202,17 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [umi, checkEligibility, firstRun]);
 
+  const MobileLayout = () => {
+    return (
+      <div className="mobile-container">
+        <h1>手机端布局</h1>
+        {/* 其他内容 */}
+      </div>
+    );
+  };
+
   const PageContent = () => {
+
     return (
       <Layout style={{ position: 'relative', background: 'rgba(255, 255, 255, 0)' }}>
         <Image
@@ -237,12 +246,12 @@ export default function Home() {
                 />
               </Content>
 
-              <p style={{ marginBottom: '1%' }}><FormattedMessage id="communityIntro" /></p>
-              <p style={{ marginBottom: '1%' }}><FormattedMessage id="collaboration" /></p>
-              <p style={{ marginBottom: '1%' }}><FormattedMessage id="mission" /></p>
-              <p style={{ marginBottom: '1%' }}><FormattedMessage id="missionStatement1" /></p>
-              <p style={{ marginBottom: '1%' }}><FormattedMessage id="missionStatement2" /></p>
-              <p style={{ marginBottom: '1%' }}><FormattedMessage id="identity" /></p>
+              <p style={{ marginBottom: '2%' }}><FormattedMessage id="communityIntro" /></p>
+              <p style={{ marginBottom: '2%' }}><FormattedMessage id="collaboration" /></p>
+              <p style={{ marginBottom: '2%' }}><FormattedMessage id="mission" /></p>
+              <p style={{ marginBottom: '2%' }}><FormattedMessage id="missionStatement1" /></p>
+              <p style={{ marginBottom: '2%' }}><FormattedMessage id="missionStatement2" /></p>
+              <p style={{ marginBottom: '2%' }}><FormattedMessage id="identity" /></p>
               <p style={{ marginTop: '3%' }}>
                 <a href="https://x.com/LINGSAN03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline', marginRight: '1%' }}><FormattedMessage id="twitter" /></a>
                 <a href="https://t.me/LINGSAN_03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline' }}><FormattedMessage id="telegram" /></a>
@@ -274,7 +283,7 @@ export default function Home() {
               style={{ width: '25px', height: 'auto' }} // 设置图片宽度自适应
               preview={false} // 禁用预览
             />
-            <p style={{ fontSize: '20px', marginLeft: '11%' }}><FormattedMessage id="presale" /></p> {/* 添加右边距以增加间隔 */}
+            <p style={{ fontSize: '20px', marginLeft: '11%' }}><FormattedMessage id="mint" /></p> {/* 添加右边距以增加间隔 */}
           </Content>
 
           <div style={{ marginTop: '1%', display: 'flex', flex: 1, gap: '1%' }}> {/* 使用 Flexbox 布局 */}
@@ -288,8 +297,8 @@ export default function Home() {
               }}
             >
               <div style={{ textAlign: 'left', width: '100%' }}>
-                <p style={{ fontSize: '16px', marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
-                <p style={{ fontSize: '24px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
+                <p style={{ fontSize: '18px', marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
+                <p style={{ fontSize: '26px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
               </div>
             </Content>
             <Content
@@ -305,11 +314,11 @@ export default function Home() {
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                 <div style={{ textAlign: 'left' }}>
-                  <p style={{ fontSize: '16px', marginBottom: '12%' }} >
+                  <p style={{ fontSize: '26px', marginBottom: '12%' }} >
                     <FormattedMessage id="availability" />
                     {/* {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)} */}
                   </p>
-                  <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p>
+                  {/* <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p> */}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
                   <ButtonList
@@ -340,12 +349,18 @@ export default function Home() {
     );
   };
 
+  // 获取屏幕宽度
+  const { width } = useScreenSize();
+
   return (
+    // <main>
+    //   {/* <div className='wallet'>
+    //     <WalletMultiButtonDynamic />
+    //   </div> */}
+    //   <PageContent key="content" />
+    // </main>
     <main>
-      {/* <div className='wallet'>
-        <WalletMultiButtonDynamic />
-      </div> */}
-      <PageContent key="content" />
+      {width < 768 ? <MobileLayout key="content" /> : <PageContent key="content" />} {/* 根据屏幕宽度选择布局 */}
     </main>
   );
 }

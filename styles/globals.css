@@ -237,6 +237,133 @@ a {
 }
 
 
+/* 手机端样式 */
+@media (max-width: 768px) {
+  .custom-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 48px;
+    background-color: #01050B;
+    font-family: 'WenYue' !important;
+    /* 设置菜单背景色 */
+    /* border: none; */
+    /* 去掉边框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 首页导航样式调整 */
+  .ant-menu.custom-menu {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-menu .ant-menu-item {
+    color: white;
+    /* 设置菜单项文字颜色 */
+    border-bottom: 2px solid;
+    border-color: transparent;
+    border-radius: 0;
+  }
+
+  .custom-menu .ant-menu-item:hover {
+    background-color: transparent;
+    /* 设置悬停时的背景色 */
+    color: #1890ff !important;
+    border-color: #FFFFFF;
+    /* 确保悬停时文字颜色为白色 */
+  }
+
+  .custom-menu .ant-menu-item-selected {
+    /* background-color: #1890ff; */
+    /* 设置选中项的背景色 */
+    /* 设置悬停时的背景色 */
+    /* background-color: transparent;
+    color: #1890ff !important;
+    border-color: #FFFFFF; */
+    background-color: transparent;
+    color: #FFFFFF !important;
+  }
+
+  /* 设置下拉菜单的背景色 */
+  .custom-menu .ant-dropdown-menu {
+    background-color: #01050B;
+    /* 设置下拉菜单背景色 */
+  }
+
+  /* 设置下拉菜单项的文字颜色 */
+  .custom-menu .ant-dropdown-menu-item {
+    color: white;
+    /* 设置下拉菜单项文字颜色 */
+  }
+
+  /* 设置下拉菜单项悬停时的背景色 */
+  .custom-menu .ant-dropdown-menu-item:hover {
+    background-color: #1890ff;
+    /* 设置下拉菜单项悬停时的背景色 */
+    color: #1890ff !important;
+    /* 确保悬停时文字颜色为白色 */
+  }
+
+  .custom-menu .menu-wrap {
+    width: auto;
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-menu .menu-wrap .ant-menu-item {
+    padding: 0 24px;
+    margin-right: 150px;
+  }
+
+  .custom-menu .menu-wrap .ant-menu-item:nth-last-child(1) {
+    margin-right: 0;
+  }
+
+  .custom-menu .header-operations {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-menu .header-operations .menu-item-wallet {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    height: 48px;
+    color: white;
+    /* 设置文字颜色 */
+    background-color: #01050B;
+    /* 设置背景颜色 */
+    border: none;
+    /* 去掉边框 */
+    /* padding: 10px 20px; */
+    /* 设置内边距 */
+    border-radius: 4px;
+    /* 设置圆角 */
+    /* transition: background-color 0.3s; */
+  }
+
+  .custom-menu .header-operations .menu-item-wallet:hover {
+    /* background-color: #1a1f2e !important;
+    border-color: transparent !important;
+    color: #FFFFFF !important; */
+  }
+}
+
 .Home_App__E3Ra3 {
   width: 100vw;
   height: 100vh;
@@ -245,7 +372,7 @@ a {
 
 .mouse-parallaz-container {
   position: relative;
-  width: 110vw;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -257,7 +384,7 @@ a {
   left: 0;
   background-position: top;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: auto 100%;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: none;
@@ -265,8 +392,16 @@ a {
 
 .mouse-parallaz-container .paraChild.item1 {
   background-image: url('/resources/images/home/1.png');
-  width: calc(100% + 50px);
+  width: 105%;
+  margin-left: -2.5%;
+  height: 108%;
+  top: -2%;
+  transform: none;
+  /* left: 50px;
+  top: 50px; */
+  /* width: calc(100% + 50px);
   height: calc(100% + 60px);
+  background-size: auto 100%; */
   /* background-size: auto 100%;
   width: 100%;
   transform: none;
@@ -275,8 +410,16 @@ a {
 
 .mouse-parallaz-container .paraChild.item2 {
   background-image: url('/resources/images/home/3.png');
-  width: calc(100% + 50px);
+  width: 105%;
+  margin-left: -2.5%;
+  height: 108%;
+  top: -2%;
+  transform: none;
+  /* left: 50px;
+  top: 50px; */
+  /* width: calc(100% + 50px);
   height: calc(100% + 60px);
+  background-size: auto calc(100% + 60px); */
   z-index: 2;
   /* background-size: auto 100%;
   width: 100%;
@@ -288,9 +431,22 @@ a {
 
 .mouse-parallaz-container .paraChild.item3 {
   background-image: url('/resources/images/home/2.png');
-  width: calc(100% + 50px);
+  background-size: 100% 100%;
+  width: calc(100% + 200px);
+  height: 108%;
+  top: -2%;
+  left: -100px;
+  transform: none;
+  /* width: calc(100% + 200px);
+  background-size: auto calc(100% + 200px);
+  background-position: -50px center; */
+  /* width: calc(100% + 500px);
+  height: calc(100% + 100px); */
+  /* left: -200px; */
+  /* width: calc(100% + 50px);
   height: calc(100% + 60px);
-  left: 20px;
+  background-size: 100% auto;
+  left: 20px; */
   /* left: -10px; */
   /* left:  -40px; */
   /* top: -100px; */
@@ -305,9 +461,20 @@ a {
 
 .mouse-parallaz-container .paraChild.item4 {
   background-image: url('/resources/images/home/4.png');
-  width: calc(100% + 50px);
+  width: 105%;
+  margin-left: -2.5%;
+  height: 108%;
+  top: -2%;
+  transform: none;
+  /* width: calc(100% + 200px);
+  background-size: auto calc(100% + 200px);
+  background-position: -50px center; */
+  /* width: calc(100% + 500px); */
+  /* left: -200px; */
+  /* width: calc(100% + 50px);
   height: calc(100% + 60px);
-  left: 20px;
+  background-size: auto 100%;
+  left: 20px; */
   /* left: -10px; */
   /* top: -10px; */
   /* top: 30px; */
@@ -318,4 +485,40 @@ a {
   margin-left: -5%;
   height: 100%;
   transform: none; */
+}
+
+/* styles.css 或 globals.css */
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    /* 切换为垂直布局 */
+    align-items: center;
+    /* 居中对齐 */
+  }
+
+  .mint-button {
+    width: 90%;
+    /* 按钮宽度占满 */
+    margin: 10px 0;
+    /* 添加上下间距 */
+  }
+
+  .hooksMain {
+    width: 100%;
+    /* 确保主内容宽度占满 */
+  }
+
+  .footer {
+    flex-direction: column;
+    /* 切换为垂直布局 */
+    align-items: center;
+    /* 居中对齐 */
+  }
 }

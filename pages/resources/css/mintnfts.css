@@ -18,6 +18,7 @@
   /* 添加阴影效果 */
   transition: background-color 0.3s, transform 0.3s;
   /* 添加过渡效果 */
+  margin-left: 15vw;
 }
 
 .mint-button:hover {
@@ -30,6 +31,7 @@
   /* 悬停时保持文字颜色为黑色 */
   cursor: pointer;
   /* 鼠标悬停时显示为指针 */
+  margin-left: 15vw;
 }
 
 .mint-button.disabled {
@@ -42,6 +44,7 @@
   /* 鼠标悬停时显示为禁止指针 */
   box-shadow: none;
   /* 禁用时去掉阴影效果 */
+  margin-left: 15vw;
 }
 
 .mint-button.disabled:hover {
@@ -51,6 +54,7 @@
   color: rgba(0, 0, 0, 0.5) !important;
   transform: none;
   /* 禁用时不放大 */
+  margin-left: 15vw;
 }
 
 .custom-text {

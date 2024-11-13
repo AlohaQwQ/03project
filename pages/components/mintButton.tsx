@@ -555,7 +555,7 @@ export function ButtonList({
 
   const listItems = buttonGuardList.map((buttonGuard, index) => (
     <Box key={index} >
-      <Divider my="10px" />
+      {/* <Divider my="10px" /> */}
       <HStack>
         <Heading size="xs" textTransform="uppercase">
           {buttonGuard.header}
@@ -594,9 +594,9 @@ export function ButtonList({
         </Flex>
       </HStack>
       <SimpleGrid columns={2} spacing={5}>
-        <Text pt="2" fontSize="sm">
+        {/* <Text pt="2" fontSize="sm">
           {buttonGuard.mintText}
-        </Text>
+        </Text> */}
         <VStack>
           {process.env.NEXT_PUBLIC_MULTIMINT && buttonGuard.allowed ? (
             <NumberInput
@@ -618,41 +618,41 @@ export function ButtonList({
           ) : null}
 
           {/* <Tooltip label={buttonGuard.tooltip} aria-label="Mint button"> */}
-            <Button
-              onClick={() =>
-                mintClick(
-                  umi,
-                  buttonGuard,
-                  candyMachine,
-                  candyGuard,
-                  ownedTokens,
-                  numberInputValues[buttonGuard.label] || 1,
-                  mintsCreated,
-                  setMintsCreated,
-                  guardList,
-                  setGuardList,
-                  onOpen,
-                  setCheckEligibility
-                )
-              }
-              key={buttonGuard.label}
-              // size="sm"
-              backgroundColor="teal.100"
-              // isDisabled={!buttonGuard.allowed}
-              className={'mint-button'}
-              isLoading={
-                guardList.find((elem) => elem.label === buttonGuard.label)
-                  ?.minting
-              }
-              loadingText={
-                guardList.find((elem) => elem.label === buttonGuard.label)
-                  ?.loadingText
-              }
-            >
-               <FormattedMessage id={'mint'} />
-              {/* <FormattedMessage id={!buttonGuard.allowed ? 'notMint' : buttonGuard.allowed ? 'mint' : 'minted'} /> */}
-              {/* {buttonGuard.buttonLabel} */}
-            </Button>
+          <Button
+            onClick={() =>
+              mintClick(
+                umi,
+                buttonGuard,
+                candyMachine,
+                candyGuard,
+                ownedTokens,
+                numberInputValues[buttonGuard.label] || 1,
+                mintsCreated,
+                setMintsCreated,
+                guardList,
+                setGuardList,
+                onOpen,
+                setCheckEligibility
+              )
+            }
+            key={buttonGuard.label}
+            // size="sm"
+            backgroundColor="teal.100"
+            // isDisabled={!buttonGuard.allowed}
+            className={'mint-button'}
+            isLoading={
+              guardList.find((elem) => elem.label === buttonGuard.label)
+                ?.minting
+            }
+            loadingText={
+              guardList.find((elem) => elem.label === buttonGuard.label)
+                ?.loadingText
+            }
+          >
+            <FormattedMessage id={'mint'} />
+            {/* <FormattedMessage id={!buttonGuard.allowed ? 'notMint' : buttonGuard.allowed ? 'mint' : 'minted'} /> */}
+            {/* {buttonGuard.buttonLabel} */}
+          </Button>
           {/* </Tooltip> */}
         </VStack>
       </SimpleGrid>
