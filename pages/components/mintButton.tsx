@@ -63,6 +63,8 @@ import { verifyTx } from ".././utils/verifyTx";
 import { base58 } from "@metaplex-foundation/umi/serializers";
 import { FormattedMessage } from 'react-intl';
 import { messages } from '.././locales';
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 
 const updateLoadingText = (
   loadingText: string | undefined,
@@ -128,6 +130,15 @@ const mintClick = async (
   setCheckEligibility: Dispatch<SetStateAction<boolean>>
 ) => {
   const guardToUse = chooseGuardToUse(guard, candyGuard);
+  const { connected, connect } = useWallet(); // 获取连接状态和连接函数
+  const { setVisible: setModalVisible } = useWalletModal(); 
+
+  // 检查钱包连接状态
+  if (!connected) {
+    setModalVisible(true); // 如果未连接，则连接钱包
+    return; // 连接后退出函数
+  }
+
   if (!guardToUse.guards) {
     console.error("no guard defined!");
     return;

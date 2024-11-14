@@ -17,6 +17,7 @@ const useScreenSize = () => {
     // 组件挂载时设置初始尺寸
     handleResize();
 
+    // 仅在客户端添加事件监听器
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
