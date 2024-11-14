@@ -262,6 +262,7 @@ a {
     margin: 0;
     height: 48px;
     display: flex;
+    font-size: 14px;
     align-items: center;
   }
 
@@ -272,6 +273,8 @@ a {
     border-bottom: 2px solid;
     border-color: transparent;
     border-radius: 0;
+    width: 15%;
+    /* 设置菜单项的宽度 */
   }
 
   .custom-menu .ant-menu-item:hover {
@@ -293,6 +296,7 @@ a {
     background-color: transparent;
     color: #FFFFFF !important;
     font-size: 14px;
+    border-bottom: none;
   }
 
   /* 设置下拉菜单的背景色 */
@@ -324,6 +328,7 @@ a {
 
   .custom-menu .menu-wrap .ant-menu-item {
     padding: 0 24px;
+    font-size: 14px;
     margin-right: 150px;
   }
 
@@ -335,6 +340,7 @@ a {
     position: absolute;
     top: 0;
     width: auto;
+    font-size: 14px;
     padding: 0;
     /* 确保没有额外的内边距 */
     margin: 0;
@@ -350,6 +356,7 @@ a {
     width: auto;
     /* 根据内容自适应宽度 */
     padding: 0;
+    font-size: 14px;
     /* 去掉内边距 */
     margin: 0 5px;
     /* 设置左右间距为5px，缩小间距 */
