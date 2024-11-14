@@ -82,7 +82,6 @@ function MyApp({ Component, pageProps }) {
                   </div>
                 </IntlProvider>
               </UmiProvider>
-
             </MetaplexProvider>
           </WalletModalProvider>
         </WalletProvider>

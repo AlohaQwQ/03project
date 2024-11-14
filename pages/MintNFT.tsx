@@ -204,10 +204,111 @@ export default function Home() {
 
   const MobileLayout = () => {
     return (
-      <div className="mobile-container">
-        <h1>手机端布局</h1>
-        {/* 其他内容 */}
-      </div>
+      <Layout style={{ position: 'relative', background: 'rgba(255, 255, 255, 0)' }}>
+        <Image
+          alt="img"
+          src="/resources/images/mintback.png" // 背景图路径
+          preview={false} // 禁用预览
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            objectFit: 'cover', // 确保图片覆盖整个区域
+            zIndex: -1 // 确保背景图在其他内容后面
+          }}
+        />
+        <div style={{ marginTop: '6%', marginLeft: 80, padding: 0, display: 'flex', flex: 1, gap: '1%', alignItems: 'center' }}> {/* 使用 Flexbox 布局 */}
+
+          <Content style={{ width: "30%", display: 'flex', alignItems: 'center' }}>
+            <Image
+              alt="03-logo"
+              src="/resources/images/03-logo.png"
+              style={{ width: '30%', height: 'auto' }} // 设置图片宽度自适应
+              preview={false} // 禁用预览
+            />
+          </Content>
+        </div>
+        <Footer style={{ textAlign: 'center', background: 'rgba(255, 255, 255, 0)', marginLeft: 80, marginTop: 80, padding: 0 }}>
+          <Content style={{
+            padding: 16,
+            height: 55,
+            width: '9%',
+            background: 'rgba(128, 128, 128, 0.5)', // 设置透明的灰色背景
+            borderRadius: '24px', // 设置圆角
+            display: 'flex', // 使用 Flexbox 布局
+            alignItems: 'center', // 垂直居中对齐
+          }}> {/* 使用 Flexbox 布局 */}
+            <Image
+              alt="status-live"
+              src={stopMint ? "/resources/images/status-live.png" : "/resources/images/status-stop.png"} // 根据 StopMint 状态选择图片
+              style={{ width: '25px', height: 'auto' }} // 设置图片宽度自适应
+              preview={false} // 禁用预览
+            />
+            <p style={{ fontSize: '20px', marginLeft: '11%' }}><FormattedMessage id="mint" /></p> {/* 添加右边距以增加间隔 */}
+          </Content>
+
+          <div style={{ marginTop: '1%', display: 'flex', flex: 1, gap: '1%' }}> {/* 使用 Flexbox 布局 */}
+            <Content
+              style={{
+                padding: 40,
+                minHeight: 120,
+                flex: '0 0 30%',
+                background: 'rgba(128, 128, 128, 0.3)', // 设置透明的灰色背景
+                borderRadius: '8px', // 设置圆角
+              }}
+            >
+              <div style={{ textAlign: 'left', width: '100%' }}>
+                <p style={{ fontSize: '18px', marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
+                <p style={{ fontSize: '26px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
+              </div>
+            </Content>
+            <Content
+              style={{
+                padding: 40,
+                minHeight: 120,
+                flex: '0 0 30%',
+                background: 'rgba(128, 128, 128, 0.3)', // 设置透明的灰色背景
+                borderRadius: '8px', // 设置圆角
+                display: 'flex', // 使用 Flexbox 布局
+                flexDirection: 'column', // 垂直排列
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                <div style={{ textAlign: 'left' }}>
+                  <p style={{ fontSize: '26px', marginBottom: '12%' }} >
+                    <FormattedMessage id="availability" />
+                    {/* {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)} */}
+                  </p>
+                  {/* <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p> */}
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
+                  <ButtonList
+                    guardList={guards}
+                    candyMachine={candyMachine}
+                    candyGuard={candyGuard}
+                    umi={umi}
+                    ownedTokens={ownedTokens}
+                    setGuardList={setGuards}
+                    mintsCreated={mintsCreated}
+                    setMintsCreated={setMintsCreated}
+                    onOpen={onShowNftOpen}
+                    setCheckEligibility={setCheckEligibility}
+                  />
+                </div>
+                {/* <Button
+                //onClick={canMint && disableMint ? onClick : null} // 当 canMint 为 true 且 disableMint 为 false 时，点击事件为 onClick
+                disabled={!canMint || !disableMint} // 根据 canMint 和 disableMint 设置按钮禁用状态
+                className={`mint-button ${!disableMint ? 'disabled' : ''}`} // 根据 disableMint 设置类名
+              >
+                <FormattedMessage id={!disableMint ? 'notMint' : canMint ? 'mint' : 'minted'} />
+              </Button> */}
+              </div>
+            </Content>
+          </div >
+        </Footer >
+      </Layout >
     );
   };
 

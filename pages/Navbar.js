@@ -9,6 +9,9 @@ import { useIntl } from 'react-intl';
 import { Image, Drawer, Button, Layout } from 'antd'; // 导入 Ant Design 的 Button
 import { FormattedMessage } from 'react-intl';
 import useScreenSize from './screenSize';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+
 const { Content } = Layout; // 确保在这里定义 Content
 
 const items = [
@@ -38,6 +41,16 @@ const Navbar = ({ switchLanguage }) => {
   const [current, setCurrent] = useState('home');
   const { width } = useScreenSize(); // 获取屏幕宽度
   const [visible, setVisible] = useState(false);
+  const { connected, disconnect, connect } = useWallet(); // 获取连接状态和方法
+  const { setVisible: setModalVisible } = useWalletModal(); // 获取打开钱包选择对话框的方法
+
+  const handleClick = () => {
+    if (connected) {
+      disconnect(); // 如果已连接，则断开连接
+    } else {
+      setModalVisible(true); // 如果未连接，则连接钱包
+    }
+  };
 
   const showDrawer = () => {
     setVisible(true);
@@ -87,18 +100,24 @@ const Navbar = ({ switchLanguage }) => {
               </Menu.Item>
             ))}
             <div className='header-operations'>
-              <Menu.Item className="ant-menu-item" key="language-toggle">
+              <Menu.Item key="language-toggle">
                 <Image
                   src="/resources/images/switch.png" // 根据当前语言选择图片  style={{ marginLeft: '800px' }}
                   alt={'lang'}
                   preview={false}
-                  style={{ cursor: 'pointer', width: '30px', height: '30px' }} // 设置图片样式
+                  style={{ cursor: 'pointer', width: '20px', height: '20px' }} // 设置图片样式
                   onClick={handleLanguageToggle} // 点击切换语言
                 />
               </Menu.Item>
 
-              <Menu.Item key="wallet-button" className="menu-item-wallet"> {/* 添加样式使按钮右对齐  style={{ marginLeft: 'auto' }} */}
-                <ButtonWrapper className="wallet-button" /> {/* 将 ButtonWrapper 添加到菜单中 */}
+              <Menu.Item key="wallet-button"> {/* 添加样式使按钮右对齐  style={{ marginLeft: 'auto' }} */}
+                <Image
+                  src="/resources/images/wallet2.png" // 替换为你的钱包图标路径
+                  alt="Wallet"
+                  preview={false}
+                  style={{ cursor: 'pointer', width: '30px', height: '30px' }} // 设置图片样式
+                  onClick={handleClick} // 点击事件处理
+                />
               </Menu.Item>
             </div>
           </Menu>
@@ -133,8 +152,10 @@ const Navbar = ({ switchLanguage }) => {
               />
             </Menu.Item>
 
-            <Menu.Item key="wallet-button" className="menu-item-wallet"> {/* 添加样式使按钮右对齐  style={{ marginLeft: 'auto' }} */}
-              <ButtonWrapper className="wallet-button" /> {/* 将 ButtonWrapper 添加到菜单中 */}
+            <Menu.Item key="wallet-button" > {/* 添加样式使按钮右对齐  style={{ marginLeft: 'auto' }} */}
+              <ButtonWrapper
+                showAddress={false}
+                className="wallet-button" /> {/* 将 ButtonWrapper 添加到菜单中 */}
             </Menu.Item>
           </div>
         </Menu>

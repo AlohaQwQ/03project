@@ -175,7 +175,7 @@ a {
 
 /* 首页导航样式调整 */
 .ant-menu.custom-menu {
-  width: 100%;
+  width: 50%;
   padding: 0;
   margin: 0;
   height: 48px;
@@ -252,6 +252,7 @@ a {
     /* border: none; */
     /* 去掉边框 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
   }
 
   /* 首页导航样式调整 */
@@ -266,6 +267,7 @@ a {
 
   .custom-menu .ant-menu-item {
     color: white;
+    font-size: 14px;
     /* 设置菜单项文字颜色 */
     border-bottom: 2px solid;
     border-color: transparent;
@@ -277,6 +279,7 @@ a {
     /* 设置悬停时的背景色 */
     color: #1890ff !important;
     border-color: #FFFFFF;
+    font-size: 14px;
     /* 确保悬停时文字颜色为白色 */
   }
 
@@ -289,6 +292,7 @@ a {
     border-color: #FFFFFF; */
     background-color: transparent;
     color: #FFFFFF !important;
+    font-size: 14px;
   }
 
   /* 设置下拉菜单的背景色 */
@@ -329,39 +333,38 @@ a {
 
   .custom-menu .header-operations {
     position: absolute;
-    right: 20px;
     top: 0;
     width: auto;
     padding: 0;
+    /* 确保没有额外的内边距 */
     margin: 0;
+    /* 确保没有额外的外边距 */
     height: 48px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    /* 将内容推到右侧 */
   }
 
   .custom-menu .header-operations .menu-item-wallet {
     width: auto;
+    /* 根据内容自适应宽度 */
     padding: 0;
-    margin: 0;
-    height: 48px;
+    /* 去掉内边距 */
+    margin: 0 5px;
+    /* 设置左右间距为5px，缩小间距 */
     color: white;
     /* 设置文字颜色 */
     background-color: #01050B;
     /* 设置背景颜色 */
     border: none;
     /* 去掉边框 */
-    /* padding: 10px 20px; */
-    /* 设置内边距 */
-    border-radius: 4px;
-    /* 设置圆角 */
-    /* transition: background-color 0.3s; */
   }
 
   .custom-menu .header-operations .menu-item-wallet:hover {
-    /* background-color: #1a1f2e !important;
-    border-color: transparent !important;
-    color: #FFFFFF !important; */
+    /* 添加悬停效果 */
   }
+
 }
 
 .Home_App__E3Ra3 {
