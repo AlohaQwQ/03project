@@ -20,6 +20,7 @@ import { useSolanaTime } from "./utils/SolanaTimeContext";
 import { Button, Card, Row, Col, Spin, Layout, Modal, Menu, Image } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import useScreenSize from './screenSize';
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -137,7 +138,8 @@ export default function Home() {
   const [disableMint, setDisableMint] = useState(true);
   const [canMint, setCanMint] = useState(true);
   const [stopMint, setStopMint] = useState(true);
-
+  const { connected, connect } = useWallet(); // 获取连接状态和连接函数
+  
   if (!process.env.NEXT_PUBLIC_CANDY_MACHINE_ID) {
     console.error("No candy machine in .env!Add your candy machine address to the .env file!")
     // if (!toast.isActive('no-cm')) {
@@ -204,37 +206,67 @@ export default function Home() {
 
   const MobileLayout = () => {
     return (
-      <Layout style={{ position: 'relative', background: 'rgba(255, 255, 255, 0)' }}>
+      <Layout style={{ background: 'rgba(255, 255, 255, 0)' }}>
         <Image
-          alt="img"
-          src="/resources/images/mintback.png" // 背景图路径
-          preview={false} // 禁用预览
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            objectFit: 'cover', // 确保图片覆盖整个区域
-            zIndex: -1 // 确保背景图在其他内容后面
-          }}
-        />
-        <div style={{ marginTop: '6%', marginLeft: 80, padding: 0, display: 'flex', flex: 1, gap: '1%', alignItems: 'center' }}> {/* 使用 Flexbox 布局 */}
+							alt="img"
+							src="/resources/images/mintback.png" // 背景图路径
+							preview={false} // 禁用预览
+							style={{
+								position: 'fixed', // 使用 fixed 使其相对于视口固定
+								top: 0,
+								left: 0,
+								width: '100vw', // 设置宽度为视口宽度
+								height: '100vh', // 设置高度为视口高度
+								objectFit: 'cover', // 确保图片覆盖整个区域
+								zIndex: -1 // 确保背景图在其他内容后面
+							}}
+						/>
+        <div style={{ marginTop: '18%', padding: 0, display: 'flex', flex: 1, gap: '1%', flexDirection: 'column', alignItems: 'center' }}> {/* 使用 Flexbox 布局 */}
 
-          <Content style={{ width: "30%", display: 'flex', alignItems: 'center' }}>
+          <Content style={{ width: "90%", display: 'flex', alignItems: 'center' }}>
             <Image
               alt="03-logo"
               src="/resources/images/03-logo.png"
-              style={{ width: '30%', height: 'auto' }} // 设置图片宽度自适应
+              style={{ width: '50%', marginLeft: '25%',height: 'auto' }} // 设置图片宽度自适应
               preview={false} // 禁用预览
             />
           </Content>
+
+          <Content style={{ width: "90%" }}> {/* 设置为完全透明 */}
+            <div style={{ fontSize: '18px', flex: '0 0 70%' }}>
+              <Content style={{
+                display: 'flex', // 使用 Flexbox 布局
+              }}> {/* 使用 Flexbox 布局 */}
+
+                <p style={{ fontSize: '26px', marginBottom: '1%' }}><FormattedMessage id="zeroSan" /></p>
+                <Image
+                  alt="account"
+                  src="/resources/images/account.png"
+                  style={{ width: '20px', height: 'auto', marginLeft: '10px' }} // 设置图片宽度自适应
+                  preview={false} // 禁用预览
+                />
+              </Content>
+
+              <p style={{ marginBottom: '1%', lineHeight: '1.5' }}><FormattedMessage id="communityIntro" /></p>
+              <p style={{ marginBottom: '1%', lineHeight: '1.5' }}><FormattedMessage id="collaboration" /></p>
+              <p style={{ marginBottom: '1%', lineHeight: '1.5' }}><FormattedMessage id="mission" /></p>
+              <p style={{ marginBottom: '1%', lineHeight: '1.5' }}><FormattedMessage id="missionStatement1" /></p>
+              <p style={{ marginBottom: '1%', lineHeight: '1.5' }}><FormattedMessage id="missionStatement2" /></p>
+              <p style={{ marginBottom: '1%', lineHeight: '1.5' }}><FormattedMessage id="identity" /></p>
+              <p style={{ marginTop: '6%' }}>
+                <a href="https://x.com/LINGSAN03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline', marginRight: '5%' }}><FormattedMessage id="twitter" /></a>
+                <a href="https://t.me/LINGSAN_03" target="_blank" rel="noreferrer" style={{ color: '#1890ff', textDecoration: 'underline' }}><FormattedMessage id="telegram" /></a>
+              </p>
+            </div>
+          </Content>
+
         </div>
-        <Footer style={{ textAlign: 'center', background: 'rgba(255, 255, 255, 0)', marginLeft: 80, marginTop: 80, padding: 0 }}>
+        <Footer style={{ textAlign: 'center', background: 'rgba(255, 255, 255, 0)',  marginTop: 40, marginBottom: 20,padding: 0, marginLeft: 20, }}>
           <Content style={{
             padding: 16,
-            height: 55,
-            width: '9%',
+            height: 45,
+            width: '30%',
+            marginBottom: '5%',
             background: 'rgba(128, 128, 128, 0.5)', // 设置透明的灰色背景
             borderRadius: '24px', // 设置圆角
             display: 'flex', // 使用 Flexbox 布局
@@ -246,28 +278,31 @@ export default function Home() {
               style={{ width: '25px', height: 'auto' }} // 设置图片宽度自适应
               preview={false} // 禁用预览
             />
-            <p style={{ fontSize: '20px', marginLeft: '11%' }}><FormattedMessage id="mint" /></p> {/* 添加右边距以增加间隔 */}
+            <p style={{  marginLeft: '11%' }}><FormattedMessage id="mint" /></p> {/* 添加右边距以增加间隔 */}
           </Content>
 
-          <div style={{ marginTop: '1%', display: 'flex', flex: 1, gap: '1%' }}> {/* 使用 Flexbox 布局 */}
+          <div style={{ marginTop: '1%', display: 'flex', flexDirection: 'column', gap: '1%'}}> {/* 使用 Flexbox 布局 */}
             <Content
               style={{
-                padding: 40,
-                minHeight: 120,
+                padding: 16,
+                minHeight: 50,
+                width: '60%',
                 flex: '0 0 30%',
+                marginBottom: '5%',
                 background: 'rgba(128, 128, 128, 0.3)', // 设置透明的灰色背景
                 borderRadius: '8px', // 设置圆角
               }}
             >
               <div style={{ textAlign: 'left', width: '100%' }}>
-                <p style={{ fontSize: '18px', marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
-                <p style={{ fontSize: '26px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
+                <p style={{ marginBottom: '5%' }}><FormattedMessage id="mintPrice" /></p>
+                <p style={{ fontSize: '18px', fontWeight: 'bold' }}><FormattedMessage id="mintPriceValue" /></p>{/* 设置字体大小和加粗 */}
               </div>
             </Content>
             <Content
               style={{
-                padding: 40,
-                minHeight: 120,
+                padding: 16,
+                minHeight: 50,
+                width: '60%',
                 flex: '0 0 30%',
                 background: 'rgba(128, 128, 128, 0.3)', // 设置透明的灰色背景
                 borderRadius: '8px', // 设置圆角
@@ -276,14 +311,14 @@ export default function Home() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                <div style={{ textAlign: 'left' }}>
-                  <p style={{ fontSize: '26px', marginBottom: '12%' }} >
+                <div style={{ textAlign: 'left' , width: '80%' }}>
+                  <p style={{ fontSize: '18px' }} >
                     <FormattedMessage id="availability" />
                     {/* {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)} */}
                   </p>
                   {/* <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p> */}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginLeft: '15%', marginTop: 0, marginBottom: 0 }}>
                   <ButtonList
                     guardList={guards}
                     candyMachine={candyMachine}

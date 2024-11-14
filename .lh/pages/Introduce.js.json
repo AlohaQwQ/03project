@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 35,
+            "activePatchIndex": 41,
             "patches": [
                 {
                     "date": 1731340351203,
@@ -148,6 +148,30 @@
                 {
                     "date": 1731341382892,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n \t\t\t\t\tpreview={false}\r\n \t\t\t\t\talt=\"img\"\r\n \t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n \t\t\t\t\tclassName=\"responsive-image\"\r\n-\t\t\t\t\tstyle={{ width: '10220px', height: 'auto', objectFit: 'cover' }}\r\n+\t\t\t\t\tstyle={{ width: '10000px', height: 'auto', objectFit: 'cover' }}\r\n \t\t\t\t/>\r\n \t\t\t</Content>\r\n \t\t</Layout>\r\n \t);\r\n"
+                },
+                {
+                    "date": 1731594742133,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n const { Content } = Layout;\r\n \r\n const Introduce = () => {\r\n \treturn (\r\n-\t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n+\t\t<Layout style={{ backgroundColor: '#01050B',marginTop: '18%' }}>\r\n \t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>\r\n \t\t\t\t<Image\r\n \t\t\t\t\tpreview={false}\r\n \t\t\t\t\talt=\"img\"\r\n"
+                },
+                {
+                    "date": 1731594755926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,10 @@\n const { Content } = Layout;\r\n \r\n const Introduce = () => {\r\n \treturn (\r\n-\t\t<Layout style={{ backgroundColor: '#01050B',marginTop: '18%' }}>\r\n-\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>\r\n+\t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n+\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '18%' }}>\r\n \t\t\t\t<Image\r\n \t\t\t\t\tpreview={false}\r\n \t\t\t\t\talt=\"img\"\r\n \t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n"
+                },
+                {
+                    "date": 1731594762102,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,22 @@\n+import React from \"react\";\r\n+import { Card, Row, Col, Spin, Layout, Modal, Image } from 'antd';\r\n+\r\n+const { Content } = Layout;\r\n+\r\n+const Introduce = () => {\r\n+\treturn (\r\n+\t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n+\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '5%' }}>\r\n+\t\t\t\t<Image\r\n+\t\t\t\t\tpreview={false}\r\n+\t\t\t\t\talt=\"img\"\r\n+\t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n+\t\t\t\t\tclassName=\"responsive-image\"\r\n+\t\t\t\t\tstyle={{ width: '10000px', height: 'auto', objectFit: 'cover' }}\r\n+\t\t\t\t/>\r\n+\t\t\t</Content>\r\n+\t\t</Layout>\r\n+\t);\r\n+};\r\n+\r\n+export default Introduce;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1731594768816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \r\n const Introduce = () => {\r\n \treturn (\r\n \t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n-\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '5%' }}>\r\n+\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '20%' }}>\r\n \t\t\t\t<Image\r\n \t\t\t\t\tpreview={false}\r\n \t\t\t\t\talt=\"img\"\r\n \t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n@@ -18,27 +18,5 @@\n \t\t</Layout>\r\n \t);\r\n };\r\n \r\n-export default Introduce;\n-import React from \"react\";\r\n-import { Card, Row, Col, Spin, Layout, Modal, Image } from 'antd';\r\n-\r\n-const { Content } = Layout;\r\n-\r\n-const Introduce = () => {\r\n-\treturn (\r\n-\t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n-\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '18%' }}>\r\n-\t\t\t\t<Image\r\n-\t\t\t\t\tpreview={false}\r\n-\t\t\t\t\talt=\"img\"\r\n-\t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n-\t\t\t\t\tclassName=\"responsive-image\"\r\n-\t\t\t\t\tstyle={{ width: '10000px', height: 'auto', objectFit: 'cover' }}\r\n-\t\t\t\t/>\r\n-\t\t\t</Content>\r\n-\t\t</Layout>\r\n-\t);\r\n-};\r\n-\r\n export default Introduce;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1731594776090,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \r\n const Introduce = () => {\r\n \treturn (\r\n \t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n-\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '20%' }}>\r\n+\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '12%' }}>\r\n \t\t\t\t<Image\r\n \t\t\t\t\tpreview={false}\r\n \t\t\t\t\talt=\"img\"\r\n \t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n"
+                },
+                {
+                    "date": 1731594781268,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \r\n const Introduce = () => {\r\n \treturn (\r\n \t\t<Layout style={{ backgroundColor: '#01050B' }}>\r\n-\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '12%' }}>\r\n+\t\t\t<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '15%' }}>\r\n \t\t\t\t<Image\r\n \t\t\t\t\tpreview={false}\r\n \t\t\t\t\talt=\"img\"\r\n \t\t\t\t\tsrc=\"/resources/images/introduce.png\"\r\n"
                 }
             ],
             "date": 1731340351203,

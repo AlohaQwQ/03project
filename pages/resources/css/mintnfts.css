@@ -62,3 +62,71 @@
   color: white;
   /* 设置特定类的文字颜色为白色 */
 }
+
+@media (max-width: 768px) {
+  .mint-button {
+    background-color: white !important;
+    font-family: 'WenYue';
+    /* 设置按钮背景为白色 */
+    color: black !important;
+    /* 设置文字颜色为黑色 */
+    height: 40px;
+    /* 设置按钮高度 */
+    width: 100px;
+    /* 设置按钮宽度 */
+    font-size: 14px;
+    /* 设置字体大小 */
+    border: none;
+    /* 去掉边框 */
+    border-radius: 4px;
+    /* 设置圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 添加阴影效果 */
+    transition: background-color 0.3s, transform 0.3s;
+    /* 添加过渡效果 */
+    margin-left: 15vw;
+  }
+  
+  .mint-button:hover {
+    font-family: 'WenYue';
+    transform: scale(1.05);
+    /* 悬停时放大按钮 */
+    background-color: rgba(0, 0, 0, 0.1);
+    /* 悬停时背景颜色变为浅灰色 */
+    color: black !important;
+    /* 悬停时保持文字颜色为黑色 */
+    cursor: pointer;
+    /* 鼠标悬停时显示为指针 */
+    margin-left: 15vw;
+  }
+  
+  .mint-button.disabled {
+    font-family: 'WenYue';
+    background-color: rgba(255, 255, 255, 0.5);
+    /* 禁用时背景颜色变浅 */
+    color: rgba(0, 0, 0, 0.5) !important;
+    /* 禁用时文字颜色变浅 */
+    cursor: not-allowed;
+    /* 鼠标悬停时显示为禁止指针 */
+    box-shadow: none;
+    /* 禁用时去掉阴影效果 */
+    margin-left: 15vw;
+  }
+  
+  .mint-button.disabled:hover {
+    font-family: 'WenYue';
+    background-color: rgba(255, 255, 255, 0.5);
+    /* 禁用时不改变背景颜色 */
+    color: rgba(0, 0, 0, 0.5) !important;
+    transform: none;
+    /* 禁用时不放大 */
+    margin-left: 15vw;
+  }
+  
+  .custom-text {
+    font-family: 'WenYue';
+    color: white;
+    /* 设置特定类的文字颜色为白色 */
+  }
+  
+}

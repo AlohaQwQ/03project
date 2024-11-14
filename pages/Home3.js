@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Layout, Spin, Image } from 'antd';
+import { Layout, Spin, Image, Button } from 'antd';
 import MouseParallax from './MouseParallax'; // 导入 MouseParallax 组件
 import ParallaxBackground from './ParallaxBackground'; // 导入 立体动态效果组件 组件
 import useScreenSize from './screenSize';
+import Link from 'next/link'; // 导入 Link 组件
+import { FormattedMessage } from 'react-intl';
 
 const { Content } = Layout;
 
@@ -28,7 +30,7 @@ const Home3 = () => {
 			{width < 768 ? (
 				<>
 					<Layout style={{ backgroundColor: '#01050B', margin: 0, padding: 0, height: '100vh' }}>
-						<Content style={{ position: 'relative', width: '100%', height: '100%' }}>
+						<Content style={{ position: 'relative', width: '100%', height: '100%',marginTop: '14%' }}>
 							<Image
 								alt="img"
 								src="/resources/images/home/3.png" // 背景图路径
@@ -40,6 +42,23 @@ const Home3 = () => {
 									zIndex: -1 // 确保背景图在其他内容后面
 								}}
 							/>
+							 <Link href="/MintNFT">
+                           		<Button
+									style={{
+										position: 'absolute', // 绝对定位
+										bottom: '25%', // 距离底部20px
+										left: '50%', // 水平居中
+										transform: 'translateX(-50%)', // 使按钮居中
+										backgroundColor: 'white', // 按钮背景色
+										color: 'black', // 按钮文字颜色
+										height: '40px',
+										/* 设置按钮高度 */
+										width: '100px'
+									}}
+									>
+									<FormattedMessage id={'mint'} />
+								</Button>
+							</Link>
 						</Content>
 					</Layout>
 				</>

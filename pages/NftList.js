@@ -203,20 +203,17 @@ const NftList = () => {
 								zIndex: -1 // 确保背景图在其他内容后面
 							}}
 						/>
-						<Content style={{ background: 'rgba(255, 255, 255, 0)' }}> {/* 设置背景色为 #01050B */}
-							<h2 style={{ textAlign: 'center', marginTop: '4%' }}>Zero3 Ntfs</h2> {/* 设置居中和顶部间隔 */}
+						<Content style={{ background: 'rgba(255, 255, 255, 0)',marginTop: '18%', }}>
+							<h2 style={{ textAlign: 'center', marginTop: '4%' }}>Zero3 NFTs</h2>
 							<div style={{
 								padding: '2% 2%',
-								margin: '0 -10px', // 处理卡片间距
 								background: 'rgba(255, 255, 255, 0)',
 								display: 'flex',
-								flexDirection: 'row', // 确保横向排列
-								flexWrap: 'nowrap', // 不换行
-								justifyContent: 'center' // 左对齐
+								flexDirection: 'row',
+								overflowX: 'auto', // 允许水平滚动
+								whiteSpace: 'nowrap', // 确保卡片在同一行
+								justifyContent: 'flex-start' // 左对齐
 							}}>
-								{/* <div className="p-5 text-center">
-						<button type="button" className="btn btn-success button-25" onClick={fetchNftList}>Fetch NFT List</button>
-					</div> */}
 								{loading && zeroNfts.length === 0 ? (
 									<Spin tip="Loading..." />
 								) : (
@@ -224,7 +221,7 @@ const NftList = () => {
 										<Card
 											key={`${nft.id}-${index}`}
 											hoverable
-											style={{ margin: '10px', width: '50%', marginTop: '50%' }} // 设置每个卡片的宽度和间距
+											style={{ margin: '10px', width: '50%', marginTop: '28%', display: 'inline-block' }} // 设置每个卡片的宽度
 											cover={
 												<Image
 													alt={nft.name}
@@ -241,7 +238,6 @@ const NftList = () => {
 										</Card>
 									))
 								)}
-
 							</div>
 						</Content>
 						{/* 添加加载更多按钮 */}

@@ -6,7 +6,7 @@ const { Content } = Layout;
 const Introduce = () => {
 	return (
 		<Layout style={{ backgroundColor: '#01050B' }}>
-			<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+			<Content style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop: '14%' }}>
 				<Image
 					preview={false}
 					alt="img"

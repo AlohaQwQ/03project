@@ -270,10 +270,11 @@ a {
     color: white;
     font-size: 14px;
     /* 设置菜单项文字颜色 */
-    border-bottom: 2px solid;
+    border-bottom: none;
     border-color: transparent;
     border-radius: 0;
     width: 15%;
+    margin: 0; 
     /* 设置菜单项的宽度 */
   }
 
@@ -296,6 +297,7 @@ a {
     background-color: transparent;
     color: #FFFFFF !important;
     font-size: 14px;
+    margin: 0; 
     border-bottom: none;
   }
 
@@ -516,7 +518,6 @@ a {
   .mint-button {
     width: 90%;
     /* 按钮宽度占满 */
-    margin: 10px 0;
     /* 添加上下间距 */
   }
 
