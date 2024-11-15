@@ -53,7 +53,7 @@ const Home3 = () => {
 						<Content style={{ position: 'relative', width: '100%', height: '100%', marginTop: '14%' }}>
 							<Image
 								alt="img"
-								src="/resources/images/home/3.png" // 背景图路径
+								src="/resources/images/home/3-1.png" // 背景图路径
 								preview={false} // 禁用预览
 								style={{
 									maxWidth: '100%', // 设置最大宽度为100%
@@ -66,7 +66,7 @@ const Home3 = () => {
 								<Button
 									style={{
 										position: 'absolute', // 绝对定位
-										bottom: '25%', // 距离底部20px
+										bottom: '35%', // 距离底部20px
 										left: '50%', // 水平居中
 										transform: 'translateX(-50%)', // 使按钮居中
 										backgroundColor: 'white', // 按钮背景色
