@@ -86,7 +86,7 @@
     /* 添加过渡效果 */
     margin-left: 15vw;
   }
-  
+
   .mint-button:hover {
     font-family: 'WenYue';
     transform: scale(1.05);
@@ -99,7 +99,7 @@
     /* 鼠标悬停时显示为指针 */
     margin-left: 15vw;
   }
-  
+
   .mint-button.disabled {
     font-family: 'WenYue';
     background-color: rgba(255, 255, 255, 0.5);
@@ -112,7 +112,7 @@
     /* 禁用时去掉阴影效果 */
     margin-left: 15vw;
   }
-  
+
   .mint-button.disabled:hover {
     font-family: 'WenYue';
     background-color: rgba(255, 255, 255, 0.5);
@@ -122,11 +122,11 @@
     /* 禁用时不放大 */
     margin-left: 15vw;
   }
-  
+
   .custom-text {
     font-family: 'WenYue';
     color: white;
     /* 设置特定类的文字颜色为白色 */
   }
-  
+
 }

@@ -105,271 +105,7 @@ const fetchNft = async (
   return { digitalAsset, jsonMetadata };
 };
 
-const mintClick = async (
-  umi: Umi,
-  guard: GuardReturn,
-  candyMachine: CandyMachine,
-  candyGuard: CandyGuard,
-  ownedTokens: DigitalAssetWithToken[],
-  mintAmount: number,
-  mintsCreated:
-    | {
-      mint: PublicKey;
-      offChainMetadata: JsonMetadata | undefined;
-    }[]
-    | undefined,
-  setMintsCreated: Dispatch<
-    SetStateAction<
-      | { mint: PublicKey; offChainMetadata: JsonMetadata | undefined }[]
-      | undefined
-    >
-  >,
-  guardList: GuardReturn[],
-  setGuardList: Dispatch<SetStateAction<GuardReturn[]>>,
-  onOpen: () => void,
-  setCheckEligibility: Dispatch<SetStateAction<boolean>>
-) => {
-  const guardToUse = chooseGuardToUse(guard, candyGuard);
-  const { connected, connect } = useWallet(); // 获取连接状态和连接函数
-  const { setVisible: setModalVisible } = useWalletModal(); 
 
-  // 检查钱包连接状态
-  if (!connected) {
-    setModalVisible(true); // 如果未连接，则连接钱包
-    return; // 连接后退出函数
-  }
-
-  if (!guardToUse.guards) {
-    console.error("no guard defined!");
-    return;
-  }
-
-  let buyBeer = false;
-  console.log("buyBeer", process.env.NEXT_PUBLIC_BUYMARKBEER)
-
-  if (process.env.NEXT_PUBLIC_BUYMARKBEER === "false") {
-    buyBeer = false;
-    console.log("The Creator does not want to pay for MarkSackerbergs beer 😒");
-  }
-
-  try {
-    //find the guard by guardToUse.label and set minting to true
-    const guardIndex = guardList.findIndex((g) => g.label === guardToUse.label);
-    if (guardIndex === -1) {
-      console.error("guard not found");
-      return;
-    }
-    const newGuardList = [...guardList];
-    newGuardList[guardIndex].minting = true;
-    setGuardList(newGuardList);
-
-    let routeBuild = await routeBuilder(umi, guardToUse, candyMachine);
-    if (routeBuild && routeBuild.items.length > 0) {
-      createStandaloneToast().toast({
-        title: "Allowlist detected. Please sign to be approved to mint.",
-        status: "info",
-        duration: 900,
-        isClosable: true,
-      });
-      routeBuild = routeBuild.prepend(setComputeUnitPrice(umi, { microLamports: parseInt(process.env.NEXT_PUBLIC_MICROLAMPORTS ?? "1001") }));
-      const latestBlockhash = await umi.rpc.getLatestBlockhash({ commitment: "finalized" });
-      routeBuild = routeBuild.setBlockhash(latestBlockhash)
-      const builtTx = await routeBuild.buildAndSign(umi);
-      const sig = await umi.rpc
-        .sendTransaction(builtTx, { skipPreflight: true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
-        .then((signature) => {
-          return { status: "fulfilled", value: signature };
-        })
-        .catch((error) => {
-          createStandaloneToast().toast({
-            title: "Allow List TX failed!",
-            status: "error",
-            duration: 900,
-            isClosable: true,
-          });
-          return { status: "rejected", reason: error, value: new Uint8Array };
-
-        });
-      if (sig.status === "fulfilled")
-        await verifyTx(umi, [sig.value], latestBlockhash, "finalized");
-
-    }
-
-    // fetch LUT
-    let tables: AddressLookupTableInput[] = [];
-    const lut = process.env.NEXT_PUBLIC_LUT;
-    if (lut) {
-      const lutPubKey = publicKey(lut);
-      const fetchedLut = await fetchAddressLookupTable(umi, lutPubKey);
-      tables = [fetchedLut];
-    } else {
-      createStandaloneToast().toast({
-        title: "The developer should really set a lookup table!",
-        status: "warning",
-        duration: 900,
-        isClosable: true,
-      });
-    }
-
-    const mintTxs: Transaction[] = [];
-    let nftsigners = [] as KeypairSigner[];
-
-    const latestBlockhash = (await umi.rpc.getLatestBlockhash({ commitment: "finalized" }));
-
-    const mintArgs = mintArgsBuilder(candyMachine, guardToUse, ownedTokens);
-    const nftMint = generateSigner(umi);
-    const txForSimulation = buildTx(
-      umi,
-      candyMachine,
-      candyGuard,
-      nftMint,
-      guardToUse,
-      mintArgs,
-      tables,
-      latestBlockhash,
-      1_400_000,
-      buyBeer
-    );
-    const requiredCu = await getRequiredCU(umi, txForSimulation);
-
-    for (let i = 0; i < mintAmount; i++) {
-      const nftMint = generateSigner(umi);
-      nftsigners.push(nftMint);
-      const transaction = buildTx(
-        umi,
-        candyMachine,
-        candyGuard,
-        nftMint,
-        guardToUse,
-        mintArgs,
-        tables,
-        latestBlockhash,
-        requiredCu,
-        buyBeer
-      );
-      console.log(transaction)
-      mintTxs.push(transaction);
-    }
-    if (!mintTxs.length) {
-      console.error("no mint tx built!");
-      return;
-    }
-    // 获取当前语言的 "sign" 文本
-    const signText = messages['en'].sign;
-
-    updateLoadingText(
-      signText,
-      guardList,
-      guardToUse.label,
-      setGuardList
-    );
-    const signedTransactions = await signAllTransactions(
-      mintTxs.map((transaction, index) => ({
-        transaction,
-        signers: [umi.payer, nftsigners[index]],
-      }))
-    );
-
-    let signatures: Uint8Array[] = [];
-    let amountSent = 0;
-
-    const sendPromises = signedTransactions.map((tx, index) => {
-      return umi.rpc
-        .sendTransaction(tx, { skipPreflight: true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
-        .then((signature) => {
-          console.log(
-            `Transaction ${index + 1} resolved with signature: ${base58.deserialize(signature)[0]
-            }`
-          );
-          amountSent = amountSent + 1;
-          signatures.push(signature);
-          return { status: "fulfilled", value: signature };
-        })
-        .catch((error) => {
-          console.error(`Transaction ${index + 1} failed:`, error);
-          return { status: "rejected", reason: error };
-        });
-    });
-
-    await Promise.allSettled(sendPromises);
-
-    if (!(await sendPromises[0]).status === true) {
-      // throw error that no tx was created
-      throw new Error("no tx was created");
-    }
-    updateLoadingText(
-      ``,
-      guardList,
-      guardToUse.label,
-      setGuardList
-    );
-
-    createStandaloneToast().toast({
-      title: `${signedTransactions.length} Transaction(s) sent!`,
-      status: "success",
-      duration: 3000,
-    });
-
-    const successfulMints = await verifyTx(umi, signatures, latestBlockhash, "finalized");
-
-    updateLoadingText(
-      "Fetching your NFT",
-      guardList,
-      guardToUse.label,
-      setGuardList
-    );
-
-    // Filter out successful mints and map to fetch promises
-    const fetchNftPromises = successfulMints.map((mintResult) =>
-      fetchNft(umi, mintResult).then((nftData) => ({
-        mint: mintResult,
-        nftData,
-      }))
-    );
-
-    const fetchedNftsResults = await Promise.all(fetchNftPromises);
-
-    // Prepare data for setting mintsCreated
-    let newMintsCreated: { mint: PublicKey; offChainMetadata: JsonMetadata }[] =
-      [];
-    fetchedNftsResults.map((acc) => {
-      if (acc.nftData.digitalAsset && acc.nftData.jsonMetadata) {
-        newMintsCreated.push({
-          mint: acc.mint,
-          offChainMetadata: acc.nftData.jsonMetadata,
-        });
-      }
-      return acc;
-    }, []);
-
-    // Update mintsCreated only if there are new mints
-    if (newMintsCreated.length > 0) {
-      setMintsCreated(newMintsCreated);
-      onOpen();
-    }
-  } catch (e) {
-    console.error(`minting failed because of ${e}`);
-    createStandaloneToast().toast({
-      title: "Your mint failed!",
-      description: "Please try again.",
-      status: "error",
-      duration: 900,
-      isClosable: true,
-    });
-  } finally {
-    //find the guard by guardToUse.label and set minting to true
-    const guardIndex = guardList.findIndex((g) => g.label === guardToUse.label);
-    if (guardIndex === -1) {
-      console.error("guard not found");
-      return;
-    }
-    const newGuardList = [...guardList];
-    newGuardList[guardIndex].minting = false;
-    setGuardList(newGuardList);
-    setCheckEligibility(true);
-    updateLoadingText(undefined, guardList, guardToUse.label, setGuardList);
-  }
-};
 // new component called timer that calculates the remaining Time based on the bigint solana time and the bigint toTime difference.
 const Timer = ({
   solanaTime,
@@ -501,6 +237,9 @@ export function ButtonList({
   onOpen,
   setCheckEligibility,
 }: Props): JSX.Element {
+  const { connected, disconnect, connect } = useWallet();
+  const { setVisible: setModalVisible } = useWalletModal();
+
   const solanaTime = useSolanaTime();
   const [numberInputValues, setNumberInputValues] = useState<{
     [label: string]: number;
@@ -508,6 +247,271 @@ export function ButtonList({
   if (!candyMachine || !candyGuard) {
     return <></>;
   }
+
+  const mintButtonClick = async (
+    umi: Umi,
+    guard: GuardReturn,
+    candyMachine: CandyMachine,
+    candyGuard: CandyGuard,
+    ownedTokens: DigitalAssetWithToken[],
+    mintAmount: number,
+    mintsCreated:
+      | {
+        mint: PublicKey;
+        offChainMetadata: JsonMetadata | undefined;
+      }[]
+      | undefined,
+    setMintsCreated: Dispatch<
+      SetStateAction<
+        | { mint: PublicKey; offChainMetadata: JsonMetadata | undefined }[]
+        | undefined
+      >
+    >,
+    guardList: GuardReturn[],
+    setGuardList: Dispatch<SetStateAction<GuardReturn[]>>,
+    onOpen: () => void,
+    setCheckEligibility: Dispatch<SetStateAction<boolean>>
+  ) => {
+    const guardToUse = chooseGuardToUse(guard, candyGuard);
+
+    // 检查钱包连接状态
+    if (!connected) {
+      setModalVisible(true); // 如果未连接，则连接钱包
+      console.log("connected", connected)
+      return; // 连接后退出函数
+    }
+
+    if (!guardToUse.guards) {
+      console.error("no guard defined!");
+      return;
+    }
+
+    let buyBeer = false;
+    console.log("buyBeer", process.env.NEXT_PUBLIC_BUYMARKBEER)
+
+    if (process.env.NEXT_PUBLIC_BUYMARKBEER === "false") {
+      buyBeer = false;
+      console.log("The Creator does not want to pay for MarkSackerbergs beer 😒");
+    }
+
+    try {
+      //find the guard by guardToUse.label and set minting to true
+      const guardIndex = guardList.findIndex((g) => g.label === guardToUse.label);
+      if (guardIndex === -1) {
+        console.error("guard not found");
+        return;
+      }
+      const newGuardList = [...guardList];
+      newGuardList[guardIndex].minting = true;
+      setGuardList(newGuardList);
+
+      let routeBuild = await routeBuilder(umi, guardToUse, candyMachine);
+      if (routeBuild && routeBuild.items.length > 0) {
+        createStandaloneToast().toast({
+          title: "Allowlist detected. Please sign to be approved to mint.",
+          status: "info",
+          duration: 900,
+          isClosable: true,
+        });
+        routeBuild = routeBuild.prepend(setComputeUnitPrice(umi, { microLamports: parseInt(process.env.NEXT_PUBLIC_MICROLAMPORTS ?? "1001") }));
+        const latestBlockhash = await umi.rpc.getLatestBlockhash({ commitment: "finalized" });
+        routeBuild = routeBuild.setBlockhash(latestBlockhash)
+        const builtTx = await routeBuild.buildAndSign(umi);
+        const sig = await umi.rpc
+          .sendTransaction(builtTx, { skipPreflight: true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
+          .then((signature) => {
+            return { status: "fulfilled", value: signature };
+          })
+          .catch((error) => {
+            createStandaloneToast().toast({
+              title: "Allow List TX failed!",
+              status: "error",
+              duration: 900,
+              isClosable: true,
+            });
+            return { status: "rejected", reason: error, value: new Uint8Array };
+
+          });
+        if (sig.status === "fulfilled")
+          await verifyTx(umi, [sig.value], latestBlockhash, "finalized");
+
+      }
+
+      // fetch LUT
+      let tables: AddressLookupTableInput[] = [];
+      const lut = process.env.NEXT_PUBLIC_LUT;
+      if (lut) {
+        const lutPubKey = publicKey(lut);
+        const fetchedLut = await fetchAddressLookupTable(umi, lutPubKey);
+        tables = [fetchedLut];
+      } else {
+        createStandaloneToast().toast({
+          title: "The developer should really set a lookup table!",
+          status: "warning",
+          duration: 900,
+          isClosable: true,
+        });
+      }
+
+      const mintTxs: Transaction[] = [];
+      let nftsigners = [] as KeypairSigner[];
+
+      const latestBlockhash = (await umi.rpc.getLatestBlockhash({ commitment: "finalized" }));
+
+      const mintArgs = mintArgsBuilder(candyMachine, guardToUse, ownedTokens);
+      const nftMint = generateSigner(umi);
+      const txForSimulation = buildTx(
+        umi,
+        candyMachine,
+        candyGuard,
+        nftMint,
+        guardToUse,
+        mintArgs,
+        tables,
+        latestBlockhash,
+        1_400_000,
+        buyBeer
+      );
+      const requiredCu = await getRequiredCU(umi, txForSimulation);
+
+      for (let i = 0; i < mintAmount; i++) {
+        const nftMint = generateSigner(umi);
+        nftsigners.push(nftMint);
+        const transaction = buildTx(
+          umi,
+          candyMachine,
+          candyGuard,
+          nftMint,
+          guardToUse,
+          mintArgs,
+          tables,
+          latestBlockhash,
+          requiredCu,
+          buyBeer
+        );
+        console.log(transaction)
+        mintTxs.push(transaction);
+      }
+      if (!mintTxs.length) {
+        console.error("no mint tx built!");
+        return;
+      }
+      // 获取当前语言的 "sign" 文本
+      const signText = messages['en'].sign;
+
+      updateLoadingText(
+        signText,
+        guardList,
+        guardToUse.label,
+        setGuardList
+      );
+      const signedTransactions = await signAllTransactions(
+        mintTxs.map((transaction, index) => ({
+          transaction,
+          signers: [umi.payer, nftsigners[index]],
+        }))
+      );
+
+      let signatures: Uint8Array[] = [];
+      let amountSent = 0;
+
+      const sendPromises = signedTransactions.map((tx, index) => {
+        return umi.rpc
+          .sendTransaction(tx, { skipPreflight: true, maxRetries: 1, preflightCommitment: "finalized", commitment: "finalized" })
+          .then((signature) => {
+            console.log(
+              `Transaction ${index + 1} resolved with signature: ${base58.deserialize(signature)[0]
+              }`
+            );
+            amountSent = amountSent + 1;
+            signatures.push(signature);
+            return { status: "fulfilled", value: signature };
+          })
+          .catch((error) => {
+            console.error(`Transaction ${index + 1} failed:`, error);
+            return { status: "rejected", reason: error };
+          });
+      });
+
+      await Promise.allSettled(sendPromises);
+
+      if (!(await sendPromises[0]).status === true) {
+        // throw error that no tx was created
+        throw new Error("no tx was created");
+      }
+      updateLoadingText(
+        ``,
+        guardList,
+        guardToUse.label,
+        setGuardList
+      );
+
+      createStandaloneToast().toast({
+        title: `${signedTransactions.length} Transaction(s) sent!`,
+        status: "success",
+        duration: 3000,
+      });
+
+      const successfulMints = await verifyTx(umi, signatures, latestBlockhash, "finalized");
+
+      updateLoadingText(
+        "Fetching your NFT",
+        guardList,
+        guardToUse.label,
+        setGuardList
+      );
+
+      // Filter out successful mints and map to fetch promises
+      const fetchNftPromises = successfulMints.map((mintResult) =>
+        fetchNft(umi, mintResult).then((nftData) => ({
+          mint: mintResult,
+          nftData,
+        }))
+      );
+
+      const fetchedNftsResults = await Promise.all(fetchNftPromises);
+
+      // Prepare data for setting mintsCreated
+      let newMintsCreated: { mint: PublicKey; offChainMetadata: JsonMetadata }[] =
+        [];
+      fetchedNftsResults.map((acc) => {
+        if (acc.nftData.digitalAsset && acc.nftData.jsonMetadata) {
+          newMintsCreated.push({
+            mint: acc.mint,
+            offChainMetadata: acc.nftData.jsonMetadata,
+          });
+        }
+        return acc;
+      }, []);
+
+      // Update mintsCreated only if there are new mints
+      if (newMintsCreated.length > 0) {
+        setMintsCreated(newMintsCreated);
+        onOpen();
+      }
+    } catch (e) {
+      console.error(`minting failed because of ${e}`);
+      createStandaloneToast().toast({
+        title: "Your mint failed!",
+        description: "Please try again.",
+        status: "error",
+        duration: 900,
+        isClosable: true,
+      });
+    } finally {
+      //find the guard by guardToUse.label and set minting to true
+      const guardIndex = guardList.findIndex((g) => g.label === guardToUse.label);
+      if (guardIndex === -1) {
+        console.error("guard not found");
+        return;
+      }
+      const newGuardList = [...guardList];
+      newGuardList[guardIndex].minting = false;
+      setGuardList(newGuardList);
+      setCheckEligibility(true);
+      updateLoadingText(undefined, guardList, guardToUse.label, setGuardList);
+    }
+  };
 
   const handleNumberInputChange = (label: string, value: number) => {
     setNumberInputValues((prev) => ({ ...prev, [label]: value }));
@@ -631,7 +635,7 @@ export function ButtonList({
           {/* <Tooltip label={buttonGuard.tooltip} aria-label="Mint button"> */}
           <Button
             onClick={() =>
-              mintClick(
+              mintButtonClick(
                 umi,
                 buttonGuard,
                 candyMachine,
@@ -673,11 +677,4 @@ export function ButtonList({
   return <>{listItems}</>;
 }
 
-const mintButton2 = () => {
-  return (
-    <div>
-    </div>
-  );
-};
-
-export default mintButton2;
+export default ButtonList;

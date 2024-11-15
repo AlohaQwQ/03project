@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl';
 const xApiKey = "GZdHhsJYG2Wa94Am"; //Enter Your x-api-key here
 const { Meta } = Card;
 const { Content } = Layout; // 确保在这里定义 Content
-import useScreenSize from './screenSize';
 
 const NftList = () => {
 	const [file, setfile] = useState();
@@ -42,7 +41,6 @@ const NftList = () => {
 	const [selectedNft, setSelectedNft] = useState(null); // 用于存储选中的 NFT
 	const [isModalVisible, setIsModalVisible] = useState(false); // 控制模态框的可见性
 	const [hasMoreData, setMoreData] = useState(true);
-	const { width } = useScreenSize(); // 获取屏幕宽度
 
 	const callback = (signature, result) => {
 		console.log("Signature ", signature);
@@ -87,7 +85,7 @@ const NftList = () => {
 								// 创建一个集合来存储 zeroNfts 中的名称
 								const existingNames = new Set(zeroNfts.map(existingNft => existingNft.name));
 
-								console.log('Existing NFT Names:', Array.from(existingNames)); // 打印现有 NFT 名称
+								// console.log('Existing NFT Names:', Array.from(existingNames)); // 打印现有 NFT 名称
 								// 去重 filteredNfts，确保只保留不在 zeroNfts 中的 NFT
 								filteredNfts = filteredNfts.filter(nft => !existingNames.has(nft.name));
 							}
@@ -183,10 +181,30 @@ const NftList = () => {
 			});
 	}
 
+	const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (typeof window !== 'undefined') {
+				setScreenSize({
+					width: window.innerWidth,
+					height: window.innerHeight,
+				});
+			}
+		};
+
+		// 组件挂载时设置初始尺寸
+		handleResize();
+
+		// 添加事件监听器
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
 	return (
 		<>
 			{/* 手机端布局 */}
-			{width < 768 ? (
+			{screenSize.width < 768 ? (
 				<>
 					<Layout style={{ background: 'rgba(255, 255, 255, 0)' }}>
 						<Image
@@ -203,7 +221,7 @@ const NftList = () => {
 								zIndex: -1 // 确保背景图在其他内容后面
 							}}
 						/>
-						<Content style={{ background: 'rgba(255, 255, 255, 0)',marginTop: '18%', }}>
+						<Content style={{ background: 'rgba(255, 255, 255, 0)', marginTop: '18%', }}>
 							<h2 style={{ textAlign: 'center', marginTop: '4%' }}>Zero3 NFTs</h2>
 							<div style={{
 								padding: '2% 2%',
@@ -396,11 +414,11 @@ const NftList = () => {
 									preview={false}
 									alt={selectedNft.name}
 									src={selectedNft.image_uri}
-									style={{ width: '50%', maxHeight: '400px', objectFit: 'contain', marginBottom: '20px' }}
+									style={{ width: '300px', height: '300px', objectFit: 'contain', marginBottom: '20px' }}
 								/>
-								<ul style={{ listStyleType: 'none', padding: 0, textAlign: 'left', fontSize: '18px', marginTop: '0', color: '#01050B' }}>
+								<ul style={{ listStyleType: 'none', padding: 0, textAlign: 'left', marginRight: '15%', fontSize: '18px', marginTop: '0', color: '#01050B' }}>
 									{selectedNft.attributes_array.map((attr, index) => (
-										<li key={index} style={{ lineHeight: '1.5' }}>
+										<li key={index} style={{ lineHeight: '1.6' }}>
 											<span style={{ display: 'inline-block', width: '120px' }}>{attr.trait_type}:</span> {attr.value}
 										</li>
 									))}

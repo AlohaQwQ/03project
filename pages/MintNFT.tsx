@@ -5,7 +5,7 @@ import {
 } from "@metaplex-foundation/umi";
 import { DigitalAssetWithToken, JsonMetadata } from "@metaplex-foundation/mpl-token-metadata";
 import dynamic from "next/dynamic";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { useUmi } from "./utils/useUmi";
 import { fetchCandyMachine, safeFetchCandyGuard, CandyGuard, CandyMachine, AccountVersion } from "@metaplex-foundation/mpl-candy-machine"
 import { guardChecker } from "./utils/checkAllowed";
@@ -19,7 +19,6 @@ import { image, headerText } from "./settings";
 import { useSolanaTime } from "./utils/SolanaTimeContext";
 import { Button, Card, Row, Col, Spin, Layout, Modal, Menu, Image } from 'antd';
 import { FormattedMessage } from 'react-intl';
-import useScreenSize from './screenSize';
 import { useWallet } from "@solana/wallet-adapter-react";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -139,7 +138,7 @@ export default function Home() {
   const [canMint, setCanMint] = useState(true);
   const [stopMint, setStopMint] = useState(true);
   const { connected, connect } = useWallet(); // 获取连接状态和连接函数
-  
+
   if (!process.env.NEXT_PUBLIC_CANDY_MACHINE_ID) {
     console.error("No candy machine in .env!Add your candy machine address to the .env file!")
     // if (!toast.isActive('no-cm')) {
@@ -208,26 +207,26 @@ export default function Home() {
     return (
       <Layout style={{ background: 'rgba(255, 255, 255, 0)' }}>
         <Image
-							alt="img"
-							src="/resources/images/mintback.png" // 背景图路径
-							preview={false} // 禁用预览
-							style={{
-								position: 'fixed', // 使用 fixed 使其相对于视口固定
-								top: 0,
-								left: 0,
-								width: '100vw', // 设置宽度为视口宽度
-								height: '100vh', // 设置高度为视口高度
-								objectFit: 'cover', // 确保图片覆盖整个区域
-								zIndex: -1 // 确保背景图在其他内容后面
-							}}
-						/>
+          alt="img"
+          src="/resources/images/mintback.png" // 背景图路径
+          preview={false} // 禁用预览
+          style={{
+            position: 'fixed', // 使用 fixed 使其相对于视口固定
+            top: 0,
+            left: 0,
+            width: '100vw', // 设置宽度为视口宽度
+            height: '100vh', // 设置高度为视口高度
+            objectFit: 'cover', // 确保图片覆盖整个区域
+            zIndex: -1 // 确保背景图在其他内容后面
+          }}
+        />
         <div style={{ marginTop: '18%', padding: 0, display: 'flex', flex: 1, gap: '1%', flexDirection: 'column', alignItems: 'center' }}> {/* 使用 Flexbox 布局 */}
 
           <Content style={{ width: "90%", display: 'flex', alignItems: 'center' }}>
             <Image
               alt="03-logo"
               src="/resources/images/03-logo.png"
-              style={{ width: '50%', marginLeft: '25%',height: 'auto' }} // 设置图片宽度自适应
+              style={{ width: '50%', marginLeft: '25%', height: 'auto' }} // 设置图片宽度自适应
               preview={false} // 禁用预览
             />
           </Content>
@@ -261,7 +260,7 @@ export default function Home() {
           </Content>
 
         </div>
-        <Footer style={{ textAlign: 'center', background: 'rgba(255, 255, 255, 0)',  marginTop: 40, marginBottom: 20,padding: 0, marginLeft: 20, }}>
+        <Footer style={{ textAlign: 'center', background: 'rgba(255, 255, 255, 0)', marginTop: 40, marginBottom: 20, padding: 0, marginLeft: 20, }}>
           <Content style={{
             padding: 16,
             height: 45,
@@ -278,10 +277,10 @@ export default function Home() {
               style={{ width: '25px', height: 'auto' }} // 设置图片宽度自适应
               preview={false} // 禁用预览
             />
-            <p style={{  marginLeft: '11%' }}><FormattedMessage id="mint" /></p> {/* 添加右边距以增加间隔 */}
+            <p style={{ marginLeft: '11%' }}><FormattedMessage id="mint" /></p> {/* 添加右边距以增加间隔 */}
           </Content>
 
-          <div style={{ marginTop: '1%', display: 'flex', flexDirection: 'column', gap: '1%'}}> {/* 使用 Flexbox 布局 */}
+          <div style={{ marginTop: '1%', display: 'flex', flexDirection: 'column', gap: '1%' }}> {/* 使用 Flexbox 布局 */}
             <Content
               style={{
                 padding: 16,
@@ -311,8 +310,8 @@ export default function Home() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                <div style={{ textAlign: 'left' , width: '80%' }}>
-                  <p style={{ fontSize: '18px' }} >
+                <div style={{ textAlign: 'left' }}>
+                  <p style={{ fontSize: '18px', width: '60px', wordWrap: 'break-word', overflowWrap: 'break-word' }}>
                     <FormattedMessage id="availability" />
                     {/* {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)} */}
                   </p>
@@ -450,13 +449,13 @@ export default function Home() {
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                 <div style={{ textAlign: 'left' }}>
-                  <p style={{ fontSize: '26px', marginBottom: '12%' }} >
+                  <p style={{ fontSize: '26px', marginBottom: '12%', width: '100px' }} >
                     <FormattedMessage id="availability" />
                     {/* {Number(candyMachine?.data.itemsAvailable) - Number(candyMachine?.itemsRedeemed)}/{Number(candyMachine?.data.itemsAvailable)} */}
                   </p>
                   {/* <p style={{ fontSize: '24px', fontWeight: 'bold' }} ><FormattedMessage id="presaleOnly" /></p> */}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'center', width: '80%' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '70%', margin: '2%' }}>
                   <ButtonList
                     guardList={guards}
                     candyMachine={candyMachine}
@@ -485,8 +484,27 @@ export default function Home() {
     );
   };
 
-  // 获取屏幕宽度
-  const { width } = useScreenSize();
+  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== 'undefined') {
+        setScreenSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+    };
+
+    // 组件挂载时设置初始尺寸
+    handleResize();
+
+    // 添加事件监听器
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
 
   return (
     // <main>
@@ -496,7 +514,7 @@ export default function Home() {
     //   <PageContent key="content" />
     // </main>
     <main>
-      {width < 768 ? <MobileLayout key="content" /> : <PageContent key="content" />} {/* 根据屏幕宽度选择布局 */}
+      {screenSize.width < 768 ? <MobileLayout key="content" /> : <PageContent key="content" />} {/* 根据屏幕宽度选择布局 */}
     </main>
   );
 }

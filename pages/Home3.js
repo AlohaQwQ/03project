@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Spin, Image, Button } from 'antd';
 import MouseParallax from './MouseParallax'; // 导入 MouseParallax 组件
 import ParallaxBackground from './ParallaxBackground'; // 导入 立体动态效果组件 组件
-import useScreenSize from './screenSize';
 import Link from 'next/link'; // 导入 Link 组件
 import { FormattedMessage } from 'react-intl';
 
@@ -10,7 +9,6 @@ const { Content } = Layout;
 
 const Home3 = () => {
 	const [loading, setLoading] = useState(true); // 初始化加载状态为 true
-	const { width } = useScreenSize(); // 获取屏幕宽度
 
 	const handleLoadComplete = () => {
 		setLoading(false); // 加载完成，设置状态为 false
@@ -24,13 +22,35 @@ const Home3 = () => {
 	// 	<MouseParallax onLoadComplete={handleLoadComplete} /> // 加载完成后显示 MouseParallax 组件
 	// )}
 
+
+	const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (typeof window !== 'undefined') {
+				setScreenSize({
+					width: window.innerWidth,
+					height: window.innerHeight,
+				});
+			}
+		};
+
+		// 组件挂载时设置初始尺寸
+		handleResize();
+
+		// 添加事件监听器
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+
 	return (
 		<>
 			{/* 手机端布局 */}
-			{width < 768 ? (
+			{screenSize.width < 768 ? (
 				<>
 					<Layout style={{ backgroundColor: '#01050B', margin: 0, padding: 0, height: '100vh' }}>
-						<Content style={{ position: 'relative', width: '100%', height: '100%',marginTop: '14%' }}>
+						<Content style={{ position: 'relative', width: '100%', height: '100%', marginTop: '14%' }}>
 							<Image
 								alt="img"
 								src="/resources/images/home/3.png" // 背景图路径
@@ -42,8 +62,8 @@ const Home3 = () => {
 									zIndex: -1 // 确保背景图在其他内容后面
 								}}
 							/>
-							 <Link href="/MintNFT">
-                           		<Button
+							<Link href="/MintNFT">
+								<Button
 									style={{
 										position: 'absolute', // 绝对定位
 										bottom: '25%', // 距离底部20px
@@ -55,7 +75,7 @@ const Home3 = () => {
 										/* 设置按钮高度 */
 										width: '100px'
 									}}
-									>
+								>
 									<FormattedMessage id={'mint'} />
 								</Button>
 							</Link>

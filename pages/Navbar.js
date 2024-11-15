@@ -1,6 +1,6 @@
 // Navbar.js
 import { Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link'; // 如果你使用的是 Next.js
 import dynamic from 'next/dynamic'; // 确保导入 dynamic
 import { IntlProvider } from 'react-intl';
@@ -8,7 +8,6 @@ import messages from './locales';
 import { useIntl } from 'react-intl';
 import { Image, Drawer, Button, Layout } from 'antd'; // 导入 Ant Design 的 Button
 import { FormattedMessage } from 'react-intl';
-import useScreenSize from './screenSize';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 
@@ -39,7 +38,7 @@ const items = [
 
 const Navbar = ({ switchLanguage }) => {
   const [current, setCurrent] = useState('home');
-  const { width } = useScreenSize(); // 获取屏幕宽度
+  // const { width, height } = useScreenSize(); // 获取屏幕宽度
   const [visible, setVisible] = useState(false);
   const { connected, disconnect, connect } = useWallet(); // 获取连接状态和方法
   const { setVisible: setModalVisible } = useWalletModal(); // 获取打开钱包选择对话框的方法
@@ -78,10 +77,30 @@ const Navbar = ({ switchLanguage }) => {
     switchLanguage(newLanguage); // 调用传入的切换语言函数
   };
 
+  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== 'undefined') {
+        setScreenSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+    };
+
+    // 组件挂载时设置初始尺寸
+    handleResize();
+
+    // 添加事件监听器
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       {/* 手机端布局 */}
-      {width < 768 ? (
+      {screenSize.width < 768 ? (
         <>
           <Menu
             onClick={onClick}
