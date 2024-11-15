@@ -224,7 +224,7 @@ const NftList = () => {
 						<Content style={{ background: 'rgba(255, 255, 255, 0)', marginTop: '18%', }}>
 							<h2 style={{ textAlign: 'center', marginTop: '4%' }}>Zero3 NFTs</h2>
 							<div style={{
-								padding: '2% 2%',
+								padding: '1% 1%',
 								background: 'rgba(255, 255, 255, 0)',
 								display: 'flex',
 								flexDirection: 'row',
@@ -232,57 +232,62 @@ const NftList = () => {
 								whiteSpace: 'nowrap', // 确保卡片在同一行
 								justifyContent: 'flex-start' // 左对齐
 							}}>
-								{loading && zeroNfts.length === 0 ? (
-									<Spin tip="Loading..." />
+								<div style={{ background: 'rgba(255, 255, 255, 0)', margin: '10%' }}>
+									{loading && zeroNfts.length === 0 ? (
+										<Spin tip="Loading..." />
 								) : (
-									zeroNfts.map((nft, index) => (
-										<Card
-											key={`${nft.id}-${index}`}
-											hoverable
-											style={{ margin: '10px', width: '50%', marginTop: '28%', display: 'inline-block' }} // 设置每个卡片的宽度
-											cover={
-												<Image
-													alt={nft.name}
-													preview={false}
-													src={nft.image_uri}
-													onClick={() => handleImageClick(nft)}
-													style={{ cursor: 'pointer' }}
-												/>
-											}
-										>
-											<div style={{ color: '#01050B', fontSize: '14px', whiteSpace: 'nowrap' }}>
-												{nft.name}
-											</div>
-										</Card>
-									))
+									<Row gutter={16} >
+										{zeroNfts.map((nft, index) => (
+											<Col span={8} key={`${nft.id}-${index}`} style={{ marginBottom: '16px' }}> {/* 增加每个 Col 的下间隔 */}
+												<Card
+													hoverable
+													style={{ marginBottom: '16px' }} 
+													cover={
+														<Image
+															alt={nft.name}
+															preview={false}
+															src={nft.image_uri}
+															onClick={() => handleImageClick(nft)} // 添加点击事件
+															style={{ cursor: 'pointer', marginBottom: '-15%' }} // 鼠标悬停时显示为指针
+														/>
+													}
+												>
+													<div style={{ color: '#01050B', height: 'auto', marginBottom: '-30%',marginLeft: '-12%'  }}> {/* 设置 nft.name 的颜色为 #01050B */}
+														{nft.name}
+													</div>
+												</Card>
+											</Col>
+										))}
+									</Row>
 								)}
+								{/* 添加加载更多按钮 */}
+								<div style={{ textAlign: 'center', marginTop: '20px' }}>
+									<span
+										onClick={hasMoreData ? fetchNftList : null} // 只有在有更多数据时才允许点击
+										style={{
+											color: hasMoreData ? '#1890ff' : '#ccc', // 根据状态设置文字颜色
+											cursor: hasMoreData ? 'pointer' : 'not-allowed', // 根据状态设置鼠标样式
+											display: 'inline-block', // 使其表现得像按钮
+											textAlign: 'center',
+											padding: '10px 20px',
+											borderRadius: '4px',
+											backgroundColor: 'transparent', // 去掉背景色
+											border: 'none', // 去掉边框
+											fontSize: '14px', // 设置文字大小
+										}}
+									>
+										{loading ? (
+											<FormattedMessage id="loading" />
+										) : hasMoreData ? (
+											<FormattedMessage id="loadMore" />
+										) : (
+											<FormattedMessage id="noMore" />
+										)}
+									</span>
+								</div>
+							</div>
 							</div>
 						</Content>
-						{/* 添加加载更多按钮 */}
-						<div style={{ textAlign: 'center', marginTop: '20px' }}>
-							<span
-								onClick={hasMoreData ? fetchNftList : null} // 只有在有更多数据时才允许点击
-								style={{
-									color: hasMoreData ? '#1890ff' : '#ccc', // 根据状态设置文字颜色
-									cursor: hasMoreData ? 'pointer' : 'not-allowed', // 根据状态设置鼠标样式
-									display: 'inline-block', // 使其表现得像按钮
-									textAlign: 'center',
-									padding: '10px 20px',
-									borderRadius: '4px',
-									backgroundColor: 'transparent', // 去掉背景色
-									border: 'none', // 去掉边框
-									fontSize: '14px', // 设置文字大小
-								}}
-							>
-								{loading ? (
-									<FormattedMessage id="loading" />
-								) : hasMoreData ? (
-									<FormattedMessage id="loadMore" />
-								) : (
-									<FormattedMessage id="noMore" />
-								)}
-							</span>
-						</div>
 						{/* 模态框显示大图和属性 */}
 						<Modal
 							title={selectedNft ? selectedNft.name : ""}
@@ -362,7 +367,7 @@ const NftList = () => {
 														/>
 													}
 												>
-													<div style={{ color: '#01050B', fontSize: '14px' }}> {/* 设置 nft.name 的颜色为 #01050B */}
+													<div style={{ color: '#01050B', fontSize: '18px' }}> {/* 设置 nft.name 的颜色为 #01050B */}
 														{nft.name}
 													</div>
 												</Card>

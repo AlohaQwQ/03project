@@ -51,34 +51,21 @@ const Home3 = () => {
 				<>
 					<Layout style={{ backgroundColor: '#01050B', margin: 0, padding: 0, height: '100vh' }}>
 						<Content style={{ position: 'relative', width: '100%', height: '100%', marginTop: '14%' }}>
-							<Image
-								alt="img"
-								src="/resources/images/home/3-1.png" // 背景图路径
-								preview={false} // 禁用预览
-								style={{
-									maxWidth: '100%', // 设置最大宽度为100%
-									maxHeight: '100%', // 设置最大高度为100%
-									objectFit: 'cover', // 确保图片覆盖整个区域
-									zIndex: -1 // 确保背景图在其他内容后面
-								}}
-							/>
-							<Link href="/MintNFT">
-								<Button
-									style={{
-										position: 'absolute', // 绝对定位
-										bottom: '35%', // 距离底部20px
-										left: '50%', // 水平居中
-										transform: 'translateX(-50%)', // 使按钮居中
-										backgroundColor: 'white', // 按钮背景色
-										color: 'black', // 按钮文字颜色
-										height: '40px',
-										/* 设置按钮高度 */
-										width: '100px'
-									}}
-								>
-									<FormattedMessage id={'mint'} />
-								</Button>
-							</Link>
+							
+						<Image
+							alt="img"
+							src="/resources/images/home/5.png" // 背景图路径
+							preview={false} // 禁用预览
+							style={{
+								position: 'fixed', // 使用 fixed 使其相对于视口固定
+								top: 0,
+								left: 0,
+								width: '100vw', // 设置宽度为视口宽度
+								height: '100vh', // 设置高度为视口高度
+								objectFit: 'cover', // 确保图片覆盖整个区域
+								zIndex: -1 // 确保背景图在其他内容后面
+							}}
+						/>
 						</Content>
 					</Layout>
 				</>

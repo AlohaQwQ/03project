@@ -407,7 +407,7 @@ a {
   width: 105%;
   margin-left: -2.5%;
   height: 108%;
-  top: -2%;
+  top: -12%;
   transform: none;
   /* left: 50px;
   top: 50px; */
@@ -425,7 +425,7 @@ a {
   width: 105%;
   margin-left: -2.5%;
   height: 108%;
-  top: -2%;
+  top: -7%;
   transform: none;
   /* left: 50px;
   top: 50px; */
@@ -442,11 +442,11 @@ a {
 }
 
 .mouse-parallaz-container .paraChild.item3 {
-  background-image: url('/resources/images/home/2.png');
+  background-image: url('/resources/images/home/6.png');
   background-size: 100% 100%;
   width: calc(100% + 200px);
   height: 108%;
-  top: -2%;
+  top: -0.5%;
   left: -100px;
   transform: none;
   /* width: calc(100% + 200px);
