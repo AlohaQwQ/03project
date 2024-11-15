@@ -274,7 +274,7 @@ a {
     border-color: transparent;
     border-radius: 0;
     width: 15%;
-    margin: 0; 
+    margin: 0;
     /* 设置菜单项的宽度 */
   }
 
@@ -297,7 +297,7 @@ a {
     background-color: transparent;
     color: #FFFFFF !important;
     font-size: 14px;
-    margin: 0; 
+    margin: 0;
     border-bottom: none;
   }
 
@@ -446,7 +446,7 @@ a {
   background-size: 100% 100%;
   width: calc(100% + 200px);
   height: 108%;
-  top: -0.5%;
+  top: -4.5%;
   left: -100px;
   transform: none;
   /* width: calc(100% + 200px);
@@ -476,7 +476,7 @@ a {
   width: 105%;
   margin-left: -2.5%;
   height: 108%;
-  top: -2%;
+  top: -4%;
   transform: none;
   /* width: calc(100% + 200px);
   background-size: auto calc(100% + 200px);
