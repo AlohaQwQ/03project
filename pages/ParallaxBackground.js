@@ -4,11 +4,12 @@ import { useSpring, useSprings, useTransition, animated, to } from 'react-spring
 const calc = (x, y) => {
   console.log("✈ ~ x:", x)
   console.log("✈ ~ y:", y)
-  return [((x > 0 && (window.innerWidth > x + 10)) ? (window.innerWidth / 2 - x) : 0), ((y > 50 && (window.innerHeight > y + 10)) ? (window.innerHeight / 2 - y) : 0)]
+  return [((x > 0 && (window.innerWidth > x + 10)) ? (window.innerWidth / 2 - x) : 0),
+  ((y > 50 && (window.innerHeight > y + 10)) ? (window.innerHeight / 2 - y) : 0)]
 }
-const trans1 = (x, y) => `translate3d(${x / 20}px,${y / 20}px, 0)`
+const trans1 = (x, y) => `translate3d(${x / 20}px,${y / 20 - 50}px, 0)`
 const trans2 = (x, y) => `translate3d(${x / 15}px,${y / 15}px, 0)`
-const trans3 = (x, y) => `translate3d(${x / 12}px,${y / 12}px, 0)`
+const trans3 = (x, y) => `translate3d(${x / 12}px,${y / 12 - 50}px, 0)`
 const trans4 = (x, y) => `translate3d(${x / 10}px,${y / 10}px, 0)`
 
 const ParallaxBackground = () => {

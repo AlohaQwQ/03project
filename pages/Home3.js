@@ -83,7 +83,7 @@ const Home3 = () => {
 					</Layout>
 				</>
 			) : (
-				<Layout style={{ backgroundColor: '#01050B', margin: 0, padding: 0, overflow: 'hidden' }}>
+				<Layout style={{ backgroundColor: '#78659B', margin: 0, padding: 0, overflow: 'hidden' }}>
 					<Content>
 						{/* <MouseParallax onLoadComplete={handleLoadComplete} /> */}
 						{/* <div className="overflow-hidden">
