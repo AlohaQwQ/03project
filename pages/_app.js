@@ -36,7 +36,7 @@ import { ConfigProvider } from 'antd'; // 导入 ConfigProvider
 function MyApp({ Component, pageProps }) {
   //https://rpc.shyft.to?api_key=GZdHhsJYG2Wa94Am
   //https://dawn-solemn-patina.solana-mainnet.quiknode.pro/da677c8be19b38de7459b4a3cb37f2336c5480df
-  const [network, setNetwork] = useState('https://dawn-solemn-patina.solana-mainnet.quiknode.pro/da677c8be19b38de7459b4a3cb37f2336c5480df');
+  const [network, setNetwork] = useState('https://mainnet.helius-rpc.com/?api-key=7920b344-482b-4c2c-8baa-45fb13136bcc');
 
   const endpoint = useMemo(() => network, [network]);
 

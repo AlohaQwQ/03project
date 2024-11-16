@@ -42,6 +42,7 @@ const Navbar = ({ switchLanguage }) => {
   const [visible, setVisible] = useState(false);
   const { connected, disconnect, connect } = useWallet(); // 获取连接状态和方法
   const { setVisible: setModalVisible } = useWalletModal(); // 获取打开钱包选择对话框的方法
+  const [walletIcon, setWalletIcon] = useState('/resources/images/wallet2.png'); // 默认图标路径
 
   const handleClick = () => {
     if (connected) {
@@ -50,6 +51,16 @@ const Navbar = ({ switchLanguage }) => {
       setModalVisible(true); // 如果未连接，则连接钱包
     }
   };
+
+  useEffect(() => {
+    // 根据连接状态更新钱包图标
+    if (connected) {
+      setWalletIcon('/resources/images/wallet3.png'); // 已连接状态的图标路径
+    } else {
+      setWalletIcon('/resources/images/wallet2.png'); // 未连接状态的图标路径
+    }
+  }, [connected]); // 监听 connected 状态变化
+
 
   const showDrawer = () => {
     setVisible(true);
@@ -131,7 +142,7 @@ const Navbar = ({ switchLanguage }) => {
 
               <Menu.Item key="wallet-button"> {/* 添加样式使按钮右对齐  style={{ marginLeft: 'auto' }} */}
                 <Image
-                  src="/resources/images/wallet2.png" // 替换为你的钱包图标路径
+                  src={walletIcon} // 替换为你的钱包图标路径
                   alt="Wallet"
                   preview={false}
                   style={{ cursor: 'pointer', width: '30px', height: '30px' }} // 设置图片样式

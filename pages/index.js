@@ -27,7 +27,7 @@ import MintNFTs from "./MintNFTs";
 import Home3 from "./Home3";
 
 export default function Home() {
-  const [network, setNetwork] = useState('https://rpc.shyft.to?api_key=GZdHhsJYG2Wa94Am');
+  const [network, setNetwork] = useState('https://mainnet.helius-rpc.com/?api-key=7920b344-482b-4c2c-8baa-45fb13136bcc');
 
   const endpoint = useMemo(() => network, [network]);
 

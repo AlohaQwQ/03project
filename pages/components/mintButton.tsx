@@ -360,20 +360,21 @@ export function ButtonList({
 
       const mintArgs = mintArgsBuilder(candyMachine, guardToUse, ownedTokens);
       const nftMint = generateSigner(umi);
-      const txForSimulation = buildTx(
-        umi,
-        candyMachine,
-        candyGuard,
-        nftMint,
-        guardToUse,
-        mintArgs,
-        tables,
-        latestBlockhash,
-        1_400_000,
-        buyBeer
-      );
-      const requiredCu = await getRequiredCU(umi, txForSimulation);
+      // const txForSimulation = buildTx(
+      //   umi,
+      //   candyMachine,
+      //   candyGuard,
+      //   nftMint,
+      //   guardToUse,
+      //   mintArgs,
+      //   tables,
+      //   latestBlockhash,
+      //   1_400_000,
+      //   buyBeer
+      // );
+      // const requiredCu = await getRequiredCU(umi, txForSimulation);
 
+      const requiredCu = 500000;
       for (let i = 0; i < mintAmount; i++) {
         const nftMint = generateSigner(umi);
         nftsigners.push(nftMint);
